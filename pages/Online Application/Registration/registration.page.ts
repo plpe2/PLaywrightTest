@@ -1,4 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { RegistrationTypes } from "../../../types/Online Application/Registration";
 
 export class RegistrationPage {
   readonly page: Page;
@@ -50,24 +51,7 @@ export class RegistrationPage {
   readonly confirmModal: Locator;
   readonly confirmButton: Locator;
 
-  constructor({
-    page,
-    urlLink,
-    OwnerInfo,
-    ContactInfo,
-  }: {
-    page: Page;
-    urlLink: string;
-    OwnerInfo: {
-      firstName: string;
-      lastName: string;
-    };
-    ContactInfo: {
-      mobileNumber: string;
-      address: string;
-      zipCode: string;
-    };
-  }) {
+  constructor({ page, urlLink, OwnerInfo, ContactInfo }: RegistrationTypes) {
     this.page = page;
     this.urlLink = urlLink;
     this.ownerInfo = OwnerInfo;

@@ -1,4 +1,5 @@
 import { expect, Locator, Page } from "@playwright/test";
+import { BpTypes } from "../../../types/Online Application/BpApplication";
 
 export class BpApplication {
   readonly page: Page;
@@ -18,16 +19,7 @@ export class BpApplication {
     securityCodeValue: string;
   };
 
-  constructor({
-    page,
-    loginCredentials,
-  }: {
-    page: Page;
-    loginCredentials: {
-      userNameValue: string;
-      securityCodeValue: string;
-    };
-  }) {
+  constructor({ page, loginCredentials }: BpTypes) {
     this.page = page;
     this.loginCredentials = loginCredentials;
 
