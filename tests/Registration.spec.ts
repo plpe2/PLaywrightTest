@@ -6,17 +6,14 @@ test("Registration", async ({ page }) => {
     page: page,
     urlLink: "http://192.168.20.71:1024/",
     OwnerInfo: {
-      firstName: "donald",
-      lastName: "hugh",
+      firstName: "martin",
+      lastName: "tirona",
     },
     ContactInfo: {
-      email: "dhugh@example.com",
       mobileNumber: "09155452264",
-      address: "1243 Fleet Street",
+      address: "B7 L3 Molino Homes Molino IV, Bacoor, Cavite",
       zipCode: "4102",
     },
-    usernameValue: "dhugh",
-    passwordValue: "P@ssw0rd",
   });
 
   await Rp.goto();
@@ -32,5 +29,5 @@ test("Registration", async ({ page }) => {
     .locator("xpath=/html/body/div/div[1]/section/div/div[2]/div[1]/div")
     .isVisible();
 
-  await page.screenshot({ path: "screenshot.png" });
+  // await page.screenshot({ path: "screenshot.png" });
 });
