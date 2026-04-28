@@ -20,16 +20,16 @@ export class BpApplication {
 
   constructor({
     page,
-    passedValues,
+    loginCredentials,
   }: {
     page: Page;
-    passedValues: {
+    loginCredentials: {
       userNameValue: string;
       securityCodeValue: string;
     };
   }) {
     this.page = page;
-    this.loginCredentials = passedValues;
+    this.loginCredentials = loginCredentials;
 
     // -- Locators initialization of Login Credentials
     this.prefix = page.locator('#formLogin input[name="Prefix"]');
