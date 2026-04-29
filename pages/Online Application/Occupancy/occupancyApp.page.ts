@@ -9,6 +9,12 @@ export class occupancyApp {
     this.OccAppNo = OccAppNo;
   }
 
+  async gotoApp() {
+    await this.page.goto(
+      "http://192.168.20.71:1024/Account/Login?statusCode=0",
+    );
+  }
+
   async gotoOccupancy() {
     await this.page.goto("http://192.168.20.71:1021/OccupancyPermit/Occupancy");
   }
