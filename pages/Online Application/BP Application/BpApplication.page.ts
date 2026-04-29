@@ -123,12 +123,14 @@ export class BpApplication {
     await this.BlkNo.fill(this.BldgAppInfo.BlkNo);
     await this.BrgyName.selectOption("ALIMA");
 
-    await this.ProjectTitle.click();
-    await this.page
-      .locator(
-        "//*[@id='formProjectInfo']/div/div/div/div[2]/div[3]/div[1]/div[1]/div[1]/div/div[2]/div/div[2]/ul/li[2]/a",
-      )
-      .click();
+    if (!this.isExisting) {
+      await this.ProjectTitle.click();
+      await this.page
+        .locator(
+          "//*[@id='formProjectInfo']/div/div/div/div[2]/div[3]/div[1]/div[1]/div[1]/div/div[2]/div/div[2]/ul/li[2]/a",
+        )
+        .click();
+    }
     await this.Savebtn.click();
     await this.Nextbtn.click();
     await this.page.waitForTimeout(5000);
