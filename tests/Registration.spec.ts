@@ -6,12 +6,12 @@ test("Registration", async ({ page }) => {
     page: page,
     urlLink: "http://192.168.20.71:1024/",
     OwnerInfo: {
-      firstName: "martin",
-      lastName: "tirona",
+      firstName: "emman",
+      lastName: "radona",
     },
     ContactInfo: {
       mobileNumber: "09155452264",
-      address: "B7 L3 Molino Homes Molino IV, Bacoor, Cavite",
+      address: "B11 L7 Molino Homes Molino IV, Bacoor, Cavite",
       zipCode: "4102",
     },
   });

@@ -66,7 +66,7 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
         channel: "chrome",
-        launchOptions: { slowMo: 100 },
+        launchOptions: { slowMo: 50 },
       },
     },
   ],

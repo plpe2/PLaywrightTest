@@ -7,3 +7,20 @@ export type BpTypes = {
     securityCodeValue: string;
   };
 };
+
+export type BldgAppInfo = {
+  Pin: string;
+  ProjectTitle?: string;
+  BldgName: string;
+  TDN: string;
+  TCTNo: string;
+  ProjectCost: number;
+  FloorArea: number;
+  StoreyNo: number;
+  LotArea: number;
+  BldgHeight: number;
+  Progress: string;
+  LotNo: string;
+  BlkNo: string;
+  BrgyName?: string;
+};
