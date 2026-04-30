@@ -1,26 +1,27 @@
 import { Page, Locator, expect } from "@playwright/test";
+import { RegistrationTypes } from "../../../types/Online Application/Registration";
 
 export class RegistrationPage {
   readonly page: Page;
 
-  // --- Section: Registration Type ---
-  readonly OwnerRegistration: Locator;
-  readonly urlLink: string;
-
+  // -- Constructor : Passed OwnerInfo
   readonly ownerInfo: {
     firstName: string;
     lastName: string;
   };
 
+  // -- Constructor : Passed ContactInfo
   readonly contactInfo: {
-    email: string;
     mobileNumber: string;
     address: string;
     zipCode: string;
   };
 
-  readonly usernameValue: string;
-  readonly passwordValue: string;
+  readonly userNameValue: string;
+
+  // --- Section: Registration Type ---
+  readonly OwnerRegistration: Locator;
+  readonly urlLink: string;
 
   // --- Section: Owner Info ---
   readonly formOfOwnership: Locator;
@@ -50,35 +51,14 @@ export class RegistrationPage {
   readonly confirmModal: Locator;
   readonly confirmButton: Locator;
 
-  constructor({
-    page,
-    urlLink,
-    OwnerInfo,
-    ContactInfo,
-    usernameValue,
-    passwordValue,
-  }: {
-    page: Page;
-    urlLink: string;
-    OwnerInfo: {
-      firstName: string;
-      lastName: string;
-    };
-    ContactInfo: {
-      email: string;
-      mobileNumber: string;
-      address: string;
-      zipCode: string;
-    };
-    usernameValue: string;
-    passwordValue: string;
-  }) {
+  constructor({ page, urlLink, OwnerInfo, ContactInfo }: RegistrationTypes) {
     this.page = page;
     this.urlLink = urlLink;
     this.ownerInfo = OwnerInfo;
     this.contactInfo = ContactInfo;
-    this.usernameValue = usernameValue;
-    this.passwordValue = passwordValue;
+
+    var firstLetter = this.ownerInfo.firstName.split("");
+    this.userNameValue = firstLetter[0] + this.ownerInfo.lastName;
 
     // Registration Type
     this.OwnerRegistration = page.getByLabel("Owner Registration");
@@ -150,16 +130,16 @@ export class RegistrationPage {
   }
 
   async fillContact() {
-    await this.email.fill(this.contactInfo.email);
+    await this.email.fill(this.userNameValue + "@gmail.com");
     await this.mobileinput.fill(this.contactInfo.mobileNumber);
     await this.address.fill(this.contactInfo.address);
     await this.zipCode.fill(this.contactInfo.zipCode);
   }
 
   async fillAccount() {
-    await this.username.fill(this.usernameValue);
-    await this.password.fill(this.passwordValue);
-    await this.confirmPassword.fill(this.passwordValue);
+    await this.username.fill(this.userNameValue);
+    await this.password.fill("P@ssw0rd");
+    await this.confirmPassword.fill("P@ssw0rd");
 
     await this.securityQuestion.selectOption({
       label: "What is your Mothers' mother maiden name?",

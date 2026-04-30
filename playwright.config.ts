@@ -64,9 +64,12 @@ export default defineConfig({
     {
       name: "Google Chrome",
       use: {
-        ...devices["Desktop Chrome"],
         channel: "chrome",
-        launchOptions: { slowMo: 100 },
+        launchOptions: {
+          slowMo: 10,
+          args: ["--start-maximized"],
+        },
+        viewport: null,
       },
     },
   ],
