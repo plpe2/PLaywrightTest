@@ -132,7 +132,6 @@ export class BpApplication {
     await this.Savebtn.click();
     await this.page.locator("xpath=/html/body/div[3]/div").isVisible();
     await this.page.getByRole("button", { name: "OK" }).click();
-    // await this.page.waitForTimeout(5000);
     await this.Nextbtn.click();
   }
 
@@ -180,7 +179,6 @@ export class BpApplication {
       )
       .click();
     await this.Nextbtn.click();
-    // await this.page.waitForTimeout(2500);
   }
 
   async submitApp() {
