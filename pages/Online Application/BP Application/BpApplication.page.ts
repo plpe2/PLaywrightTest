@@ -1,8 +1,10 @@
 import { Locator, Page } from "@playwright/test";
 import { BldgAppInfo } from "../../../types/Online Application/BpApplication";
+import { WaitUI } from "../../../helpers/WaitUI.helper";
 
 export class BpApplication {
   readonly page: Page;
+  readonly WaitUI: WaitUI;
 
   // Section: Project Information
   readonly Pin: Locator;
@@ -23,6 +25,7 @@ export class BpApplication {
   // Parameters for data-driven function
   readonly BldgAppInfo: BldgAppInfo;
   readonly isExisting: boolean;
+  readonly isNewAccount: boolean;
 
   // Navigation buttons
   readonly Savebtn: Locator;
@@ -30,16 +33,20 @@ export class BpApplication {
 
   constructor({
     page,
+    isNewAccount,
     isExisting,
     BpAppInfo,
   }: {
     page: Page;
+    isNewAccount: boolean;
     isExisting: boolean;
     BpAppInfo: BldgAppInfo;
   }) {
     this.page = page;
     this.BldgAppInfo = BpAppInfo;
     this.isExisting = isExisting;
+    this.isNewAccount = isNewAccount;
+    this.WaitUI = new WaitUI(page);
 
     this.Pin = this.page.locator('input[name="Building.Project.PIN"]');
     this.ProjectTitle = this.page
@@ -78,8 +85,8 @@ export class BpApplication {
     );
   }
 
-  async NewAccountApplication() {
-    await this.page.waitForTimeout(5000);
+  async ProjectInfoEncoding() {
+    await this.WaitUI.waitSpinner();
 
     if (this.isExisting) {
       await this.page
@@ -89,26 +96,17 @@ export class BpApplication {
         .click();
 
       await this.page.getByRole("button", { name: "Select" }).click();
-      const loader = this.page.locator("#loading img");
-
-      await loader.waitFor({
-        state: "hidden",
-      });
+      await this.WaitUI.waitSpinner();
     } else {
-      await this.page.getByRole("button", { name: "Add New" }).click();
-      const loader = this.page.locator("#loading img");
-
-      await loader.waitFor({
-        state: "hidden",
-      });
+      if (!this.isNewAccount) {
+        await this.page.getByRole("button", { name: "Add New" }).click();
+        await this.WaitUI.waitSpinner();
+      }
     }
 
     await this.page.getByText("Next >").click();
-    const loader = this.page.locator("#loading img");
+    await this.WaitUI.waitSpinner();
 
-    await loader.waitFor({
-      state: "hidden",
-    });
     await this.Pin.fill(this.BldgAppInfo.Pin);
     await this.BldgName.fill(this.BldgAppInfo.BldgName);
     await this.TDN.fill(this.BldgAppInfo.TDN);
@@ -132,7 +130,66 @@ export class BpApplication {
         .click();
     }
     await this.Savebtn.click();
+    await this.page.locator("xpath=/html/body/div[3]/div").isVisible();
+    await this.page.getByRole("button", { name: "OK" }).click();
+    // await this.page.waitForTimeout(5000);
     await this.Nextbtn.click();
-    await this.page.waitForTimeout(5000);
+  }
+
+  async ProfessionalInfoEncoding() {
+    await this.page
+      .getByRole("button", {
+        name: "Search Existing Professional",
+      })
+      .click();
+    await this.page.getByRole("gridcell", { name: "MARTINES, ARTHUR" }).click();
+    await this.page.getByRole("button", { name: "Select" }).click();
+    await this.page.waitForTimeout(1500);
+    await this.Nextbtn.click();
+  }
+
+  async DocumentSubmission() {
+    await this.page.locator(".m-2").first().click();
+    await this.page
+      .locator(
+        "div:nth-child(2) > .d-flex.align-items-center.upload-group > .upload-input-group > .m-2",
+      )
+      .first()
+      .click();
+
+    await this.page
+      .locator(
+        "div:nth-child(3) > .d-flex.align-items-center.upload-group > .upload-input-group > .m-2",
+      )
+      .first()
+      .click();
+    await this.page
+      .locator(
+        "div:nth-child(2) > .card-body > div > .d-flex.align-items-center.upload-group > .upload-input-group > .m-2",
+      )
+      .first()
+      .click();
+    await this.page
+      .locator(
+        "div:nth-child(2) > .card-body > div:nth-child(2) > .d-flex.align-items-center.upload-group > .upload-input-group > .m-2",
+      )
+      .click();
+    await this.page
+      .locator(
+        "div:nth-child(2) > .card-body > div:nth-child(3) > .d-flex.align-items-center.upload-group > .upload-input-group > .m-2",
+      )
+      .click();
+    await this.Nextbtn.click();
+    // await this.page.waitForTimeout(2500);
+  }
+
+  async submitApp() {
+    await this.page.getByRole("link", { name: "Submit Application" }).click();
+    await this.page.getByRole("button", { name: "OK" }).click();
+    await this.page
+      .locator("#ModalSubmit")
+      .getByText("Yes", { exact: true })
+      .click();
+    await this.page.getByRole("button", { name: "OK" }).click();
   }
 }

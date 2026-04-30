@@ -6,11 +6,12 @@ import { loginOnlineApplication } from "../pages/Online Application/Login/loginO
 test("BpApplication", async ({ page }) => {
   var BpApp = new BpApplication({
     page,
+    isNewAccount: false,
     isExisting: false,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "EMMAN",
+      BldgName: "FRANCINE",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 2500000,
@@ -27,9 +28,12 @@ test("BpApplication", async ({ page }) => {
   var loginApp = new loginOnlineApplication(page);
 
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000027", "eradona");
+  await loginApp.loginAccount("0000001", "eradona");
   await loginApp.otpCode();
-  await BpApp.NewAccountApplication();
+  await BpApp.ProjectInfoEncoding();
+  await BpApp.ProfessionalInfoEncoding();
+  await BpApp.DocumentSubmission();
+  await BpApp.submitApp();
 
   // await page.goto("http://192.168.20.71:1024/Account/Login?statusCode=0");
 });
