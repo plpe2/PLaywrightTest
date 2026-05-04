@@ -13,7 +13,7 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "JOHN",
+      BldgName: "JDOE",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
