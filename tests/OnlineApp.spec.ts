@@ -13,24 +13,24 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "SABALO",
+      BldgName: "JOHN",
       TDN: "15-00345",
       TCTNo: "123456",
-      ProjectCost: 2500000,
-      FloorArea: 180,
+      ProjectCost: 3500000,
+      FloorArea: 45,
       StoreyNo: 2,
-      LotArea: 250,
+      LotArea: 45,
       BldgHeight: 8.5,
       Progress: "New Construction",
-      LotNo: "12",
-      BlkNo: "5",
+      LotNo: "7",
+      BlkNo: "13",
       BrgyName: "Barangay San Isidro",
     },
   });
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000001", "eradona");
+  await loginApp.loginAccount("0000005", "JDOE");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
