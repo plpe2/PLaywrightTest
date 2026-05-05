@@ -13,7 +13,7 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "JDOE",
+      BldgName: "JOHN",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -30,7 +30,7 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000005", "JDOE");
+  await loginApp.loginAccount("0000001", "JDOE");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
