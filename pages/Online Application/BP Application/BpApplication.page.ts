@@ -101,11 +101,16 @@ export class BpApplication {
       if (!this.isNewAccount) {
         await this.page.getByRole("button", { name: "Add New" }).click();
         await this.WaitUI.waitSpinner();
+      } else {
+        await this.WaitUI.waitSpinner();
+        // await this.page.locator(".modal-content").waitFor({
+        //   state: "detached",
+        // });
       }
     }
 
-    await this.page.getByText("Next >").click();
     await this.WaitUI.waitSpinner();
+    await this.page.getByRole("link", { name: "Next >" }).click();
 
     await this.Pin.fill(this.BldgAppInfo.Pin);
     await this.BldgName.fill(this.BldgAppInfo.BldgName);
@@ -141,7 +146,7 @@ export class BpApplication {
         name: "Search Existing Professional",
       })
       .click();
-    await this.page.getByRole("gridcell", { name: "MARTINES, ARTHUR" }).click();
+    await this.page.getByRole("gridcell", { name: "MARTINES, RONALD" }).click();
     await this.page.getByRole("button", { name: "Select" }).click();
     await this.page.waitForTimeout(1500);
     await this.Nextbtn.click();
