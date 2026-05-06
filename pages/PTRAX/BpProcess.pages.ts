@@ -172,4 +172,58 @@ export class BpProcess {
 
     await acceptBtn.click();
   }
+
+  async BillingintoTreasury(appNo: string) {
+    const checkboxLocator = `//td[contains(text(), '${appNo}')]/parent::tr//input[@type='checkbox']`;
+
+    await this.page.goto("http://192.168.20.71:1023/Account/DtraxLogin.aspx");
+    await this.username.fill("billingdbo");
+    await this.password.fill("P@ssw0rd");
+    await this.loginbtn.click();
+
+    await this.page
+      .locator("//*[@id='gbox_grdMailbox_Procurement']")
+      .waitFor({ state: "visible" });
+
+    await this.page.getByRole("gridcell", { name: appNo }).click();
+
+    var jumpSelection = this.page.locator(
+      "//*[@id='MainContent_ctlDocMgr_OperatorsAdvice1_ddl_JumpTo_Steps']",
+    );
+
+    await jumpSelection.waitFor({ state: "attached" });
+
+    await jumpSelection.selectOption("Step 9 : CASHIER(FOR PAYMENT POSTING)");
+
+    this.page.once("dialog", async (dialog) => {
+      await dialog.accept();
+    });
+
+    await this.page.locator("//*[@id='btnJump']").click();
+
+    await this.page.locator("xpath=/html/body/div[13]/div[1]/a/span").click();
+
+    await this.page.getByRole("link", { name: "Logout" }).click();
+
+    await this.page.goto("http://192.168.20.71:1023/Account/DtraxLogin.aspx");
+    await this.username.fill("treasury");
+    await this.password.fill("P@ssw0rd");
+    await this.loginbtn.click();
+
+    await this.page
+      .locator("//*[@id='gbox_grdMailbox_Procurement']")
+      .waitFor({ state: "visible" });
+
+    await this.page.locator(checkboxLocator).click();
+    await this.page.locator("#MainContent_btnDocMgr_batchAcceptance").click();
+
+    const acceptBtn = this.page.locator("#MainContent_btnDocMgr_AcceptOk");
+    await acceptBtn.waitFor({ state: "visible" });
+
+    this.page.once("dialog", async (dialog) => {
+      await dialog.accept();
+    });
+
+    await acceptBtn.click();
+  }
 }

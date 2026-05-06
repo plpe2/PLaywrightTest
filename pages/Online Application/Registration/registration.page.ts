@@ -130,7 +130,7 @@ export class RegistrationPage {
   }
 
   async fillContact() {
-    await this.email.fill(this.userNameValue + "@gmail.com");
+    await this.email.fill("pvillanueva@geosolutions.com.ph");
     await this.mobileinput.fill(this.contactInfo.mobileNumber);
     await this.address.fill(this.contactInfo.address);
     await this.zipCode.fill(this.contactInfo.zipCode);
