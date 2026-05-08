@@ -102,10 +102,11 @@ export class BpApplication {
         await this.page.getByRole("button", { name: "Add New" }).click();
         await this.WaitUI.waitSpinner();
       } else {
-        await this.WaitUI.waitSpinner();
+        // await this.WaitUI.waitSpinner();
         // await this.page.locator(".modal-content").waitFor({
         //   state: "detached",
         // });
+        await this.page.waitForTimeout(2000);
       }
     }
 
@@ -148,7 +149,7 @@ export class BpApplication {
       .click();
     await this.page.getByRole("gridcell", { name: "MARTINES, RONALD" }).click();
     await this.page.getByRole("button", { name: "Select" }).click();
-    await this.page.waitForTimeout(1500);
+    await this.page.waitForTimeout(2000);
     await this.Nextbtn.click();
   }
 
