@@ -13,17 +13,22 @@ export class RefactoredReceiving {
 
   async ReceiveApp(appNumber: string) {
     await this.PTRAXHelper.clickCheckbox(appNumber);
-    this.page.locator("#MainContent_btnDocMgr_batchAcceptance").click();
+    await this.PTRAXHelper.receiveBtn.click();
 
-    await this.PTRAXHelper.receiveBtn.waitFor({ state: "visible" });
+    await this.PTRAXHelper.proceedBtn.waitFor({ state: "visible" });
 
     await this.PTRAXHelper.AcceptDialog();
 
-    await this.PTRAXHelper.receiveBtn.click();
+    await this.PTRAXHelper.proceedBtn.click();
+
+    await this.page.locator("xpath=/html/body/div[13]/div[1]/a/span").click();
   }
 
   async JumpApp(appNumber: string, step: string) {
-    await this.page.getByRole("gridcell", { name: appNumber });
+    // await this.PTRAXHelper.waitForMailbox();
+
+    await this.page.getByRole("gridcell", { name: appNumber }).click();
+
     await this.PTRAXHelper.jumpSelection.waitFor({ state: "attached" });
     await this.PTRAXHelper.jumpSelection.selectOption(step);
 

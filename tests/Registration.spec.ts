@@ -6,8 +6,8 @@ test("Registration", async ({ page }) => {
     page: page,
     urlLink: "http://192.168.20.71:1024/",
     OwnerInfo: {
-      firstName: "john",
-      lastName: "doe",
+      firstName: "paul",
+      lastName: "erano",
     },
     ContactInfo: {
       mobileNumber: "09155452264",
