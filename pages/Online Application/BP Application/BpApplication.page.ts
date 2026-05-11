@@ -113,6 +113,13 @@ export class BpApplication {
     await this.WaitUI.waitSpinner();
     await this.page.getByRole("link", { name: "Next >" }).click();
 
+    const messageDialog = this.page.getByRole("dialog", { name: "Message" });
+
+    if (await messageDialog.isVisible()) {
+      await this.page.getByRole("button", { name: "OK" }).click();
+      await this.page.getByRole("link", { name: "Next >" }).click();
+    }
+
     await this.Pin.fill(this.BldgAppInfo.Pin);
     await this.BldgName.fill(this.BldgAppInfo.BldgName);
     await this.TDN.fill(this.BldgAppInfo.TDN);
