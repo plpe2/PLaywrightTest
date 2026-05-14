@@ -4,7 +4,7 @@ import { RegistrationPage } from "../pages//Online Application/Registration/regi
 test("Registration", async ({ page }) => {
   var Rp = new RegistrationPage({
     page: page,
-    urlLink: "http://192.168.20.71:1024/",
+    testEnvironment: "LIVE",
     OwnerInfo: {
       firstName: "julius",
       lastName: "larena",

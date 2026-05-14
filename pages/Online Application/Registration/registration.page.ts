@@ -3,6 +3,7 @@ import { RegistrationTypes } from "../../../types/Online Application/Registratio
 
 export class RegistrationPage {
   readonly page: Page;
+  readonly testEnvironment: string;
 
   // -- Constructor : Passed OwnerInfo
   readonly ownerInfo: {
@@ -51,9 +52,20 @@ export class RegistrationPage {
   readonly confirmModal: Locator;
   readonly confirmButton: Locator;
 
-  constructor({ page, urlLink, OwnerInfo, ContactInfo }: RegistrationTypes) {
+  constructor({
+    page,
+    testEnvironment,
+    OwnerInfo,
+    ContactInfo,
+  }: RegistrationTypes) {
+    this.testEnvironment = testEnvironment;
     this.page = page;
-    this.urlLink = urlLink;
+
+    this.urlLink =
+      testEnvironment === "TEST"
+        ? (process.env.TEST_Registration as string)
+        : (process.env.LIVE_Registration as string);
+
     this.ownerInfo = OwnerInfo;
     this.contactInfo = ContactInfo;
 
