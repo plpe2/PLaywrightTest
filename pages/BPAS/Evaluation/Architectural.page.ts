@@ -6,6 +6,20 @@ export class Architectural extends BPASHelper {
     super(page);
   }
 
+  // Main function for the evaluation process
+
+  async evaluationProcess() {
+    await this.page.goto(
+      this.bpasURL + "PermitEvaluation/PermitEvaluationArchitectural",
+    );
+
+    await this.page.getByRole("gridcell", { name: "NBP2605-00011" }).click();
+    // await this.FZandFR();
+    // await this.BP();
+  }
+
+  // sub-functions for each evaluation criterias
+
   async FZandFR() {
     await this.page.locator("input[name='FireAveCover']").fill("1");
     await this.page.locator("#btnSaveBldgEvalFire").click();
@@ -25,17 +39,21 @@ export class Architectural extends BPASHelper {
     await this.page.locator("a").filter({ hasText: "Complied" }).nth(2).click();
   }
 
-  async evaluationProcess() {
-    await this.page.goto(
-      this.bpasURL + "PermitEvaluation/PermitEvaluationArchitectural",
-    );
+  async AS() {}
 
-    // await expect(
-    //   this.page.locator("#dataTables-BuildingPermitEval"),
-    // ).toHaveCount(1);
-    await this.page.getByRole("gridcell", { name: "NBP2605-00011" }).click();
-    await this.FZandFR();
-    await this.BP();
-    // await this.page.waitForTimeout(3500);
-  }
+  async MHB() {}
+
+  async PS() {}
+
+  async OL() {}
+
+  async GandO() {}
+
+  async AA() {}
+
+  async LandV() {}
+
+  async LandG() {}
+
+  async SwMP() {}
 }
