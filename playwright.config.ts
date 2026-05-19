@@ -66,7 +66,7 @@ export default defineConfig({
       use: {
         channel: "chrome",
         launchOptions: {
-          slowMo: 10,
+          // slowMo: 10,
           // args: ["--start-maximized"],
         },
         // viewport: null,
