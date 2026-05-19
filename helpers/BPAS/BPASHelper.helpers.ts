@@ -27,4 +27,11 @@ export class BPASHelper {
     await this.page.getByRole("button", { name: "OK" }).click();
     // await this.page.waitForURL(this.bpasURL + "Records/RecordsForm");
   }
+
+  async closeSaveEval() {
+    await expect(
+      this.page.getByText("Saved Successfully Saved Close"),
+    ).toBeVisible();
+    await this.page.getByRole("button", { name: "Close" }).click();
+  }
 }
