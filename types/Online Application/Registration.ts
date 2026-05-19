@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export type RegistrationTypes = {
   page: Page;
-  urlLink: string;
+  testEnvironment: string;
   OwnerInfo: {
     firstName: string;
     lastName: string;

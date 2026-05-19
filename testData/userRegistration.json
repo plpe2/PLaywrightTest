@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "OwnerInfo": {
+        "firstName": "frank",
+        "lastName": "cruz"
+      },
+      "ContactInfo": {
+        "mobileNumber": "09155452264",
+        "address": "B11 L7 Molino Homes Molino IV, Bacoor, Cavite",
+        "zipCode": "4102"
+      }
+    },
+    {
+      "OwnerInfo": {
+        "firstName": "fernando",
+        "lastName": "mansalan"
+      },
+      "ContactInfo": {
+        "mobileNumber": "09155452264",
+        "address": "B11 L7 Molino Homes Molino IV, Bacoor, Cavite",
+        "zipCode": "4102"
+      }
+    }
+  ]
+}
