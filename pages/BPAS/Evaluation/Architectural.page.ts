@@ -14,8 +14,17 @@ export class Architectural extends BPASHelper {
     );
 
     await this.page.getByRole("gridcell", { name: "NBP2605-00011" }).click();
-    // await this.FZandFR();
+    await this.FZandFR();
     // await this.BP();
+    // await this.AS();
+    // await this.MHB();
+    // await this.PS();
+    // await this.OL();
+    // await this.GandO();
+    // await this.AA();
+    // await this.LandV();
+    // await this.LandG();
+    // await this.SwMP();
   }
 
   // sub-functions for each evaluation criterias
@@ -39,21 +48,155 @@ export class Architectural extends BPASHelper {
     await this.page.locator("a").filter({ hasText: "Complied" }).nth(2).click();
   }
 
-  async AS() {}
+  async AS() {
+    await this.page
+      .locator(
+        "#dvFireCounter3 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="ASDwellingUnits"]').fill("1");
+    await this.page.locator("#btnSaveBldgEvalAS").click();
+    await this.closeSaveEval();
+    await this.page.locator("a").filter({ hasText: "Complied" }).nth(4).click();
+  }
 
-  async MHB() {}
+  async MHB() {
+    await this.page
+      .locator(
+        "#dvFireCounter4 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator("#rmrksMaxHeight").fill("1");
+    await this.page
+      .locator("#collapse4")
+      .getByRole("button", { name: "Save" })
+      .click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter4 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async PS() {}
+  async PS() {
+    await this.page
+      .locator(
+        "#dvFireCounter5 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="PSParkingSlot"]').fill("1");
+    await this.page.locator("#btnSaveBldgEvalPS").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter5 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async OL() {}
+  async OL() {
+    await this.page
+      .locator(
+        "#dvFireCounter6 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="OLUnitArea"]').fill("1");
+    await this.page.locator("#btnSaveBldgEvalOL").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter6 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async GandO() {}
+  async GandO() {
+    await this.page
+      .locator(
+        "#dvFireCounter7 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="GaOOpeningMaterial"]').fill("1");
+    await this.page
+      .locator("#collapse7")
+      .getByRole("button", { name: "Save" })
+      .click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter7 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async AA() {}
+  async AA() {
+    await this.page
+      .locator(
+        "#dvFireCounter8 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator("#rmrksAccessAbility").fill("1");
+    await this.page.locator("#btnSaveBldgEvalAAccessibility").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter8 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async LandV() {}
+  async LandV() {
+    await this.page
+      .locator(
+        "#dvFireCounter9 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="LVCeilingHeight"]').fill("1");
+    await this.page.locator("#btnSaveBldgEvalLV").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator("//*[@id='card_one']/div[1]/div/h3/a[1]")
+      .first()
+      .click();
+  }
 
-  async LandG() {}
+  async LandG() {
+    await this.page
+      .locator(
+        "#dvFireCounter10 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator("#txtFrontage").fill("1");
+    await this.page.locator("#btnSaveBldgEvalLG").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter10 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 
-  async SwMP() {}
+  async SwMP() {
+    await this.page
+      .locator(
+        "#dvFireCounter11 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
+      )
+      .click();
+    await this.page.locator('input[name="SMPPerimeter"]').fill("1");
+    await this.page.locator("#btnSaveBldgEvalSMP").click();
+    await this.closeSaveEval();
+    await this.page
+      .locator(
+        "#dvFireCounter11 > #card_one > .card-header > .row > .card-title > a",
+      )
+      .first()
+      .click();
+  }
 }

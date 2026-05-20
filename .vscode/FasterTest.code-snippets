@@ -20,6 +20,32 @@
     "body": "async $1(){}",
     "description": "async function for pages",
   },
+
+  "click function with locator": {
+    "scope": "javascript,typescript",
+    "prefix": "awc",
+    "body": "await this.page.$1.click()",
+    "description": "shorthand click function for defined locator",
+  },
+
+  "fill function with locator": {
+    "scope": "javascript,typescript",
+    "prefix": "awf",
+    "body": "await this.page.$1.fill('$2')",
+    "description": "shorthand for fill function for defined locator",
+  },
+
+  "evaluation criteria workflow": {
+    "scope": "javascript, typescript",
+    "prefix": "awe",
+    "body": [
+      " await this.page.$1.fill('1')",
+      "await this.page.$2.click()",
+      "await this.closeSaveEval()",
+      "await this.page.$3.click()",
+    ],
+    "description": "Full evaluation encoding of evaluation criteria",
+  },
   //
   // You can also restrict snippets to specific files using include/exclude patterns:
   // "Test snippet": {

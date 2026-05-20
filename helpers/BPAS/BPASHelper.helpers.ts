@@ -29,9 +29,13 @@ export class BPASHelper {
   }
 
   async closeSaveEval() {
-    await expect(
-      this.page.getByText("Saved Successfully Saved Close"),
-    ).toBeVisible();
-    await this.page.getByRole("button", { name: "Close" }).click();
+    var modal = this.page.getByText("Saved Successfully Saved Close");
+    await expect(modal).toBeVisible();
+    var closeBtn = this.page.getByRole("button", { name: "Close" });
+    expect(closeBtn).toBeVisible();
+    await closeBtn.click();
+
+    // wait for modal to disappear
+    await expect(modal).not.toBeVisible();
   }
 }

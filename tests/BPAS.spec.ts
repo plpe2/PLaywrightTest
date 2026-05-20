@@ -8,4 +8,5 @@ test("Architectural Evaluation", async ({ page }) => {
 
   await helpers.loginBPAS();
   await archiTest.evaluationProcess();
+  await page.locator("#btnSaveBldgEval").click();
 });
