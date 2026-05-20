@@ -1,4 +1,4 @@
-import { expect, Page } from "@playwright/test";
+import { Page } from "@playwright/test";
 import { BPASHelper } from "../../../helpers/BPAS/BPASHelper.helpers";
 
 export class Architectural extends BPASHelper {
