@@ -31,7 +31,7 @@
   "fill function with locator": {
     "scope": "javascript,typescript",
     "prefix": "awf",
-    "body": "await this.page.$1.fill('$2')",
+    "body": "await this.page.$1.fill('1')",
     "description": "shorthand for fill function for defined locator",
   },
 
