@@ -3,6 +3,7 @@ import { BPASHelper } from "../helpers/BPAS/BPASHelper.helpers";
 import { Architectural } from "../pages/BPAS/Evaluation/Architectural.page";
 import { Geodetic } from "../pages/BPAS/Evaluation/Geodetic.page";
 import { Electrical } from "../pages/BPAS/Evaluation/Electrical.page";
+import { Mechanical } from "../pages/BPAS/Evaluation/Mechanical.page";
 
 test("Architectural Evaluation", async ({ page }) => {
   var archiTest = new Architectural(page);
@@ -24,4 +25,11 @@ test("Electrical Evaluation", async ({ page }) => {
 
   await elecTest.loginBPAS();
   await elecTest.evaluationProcess();
+});
+
+test("Mechanical Evaluation", async ({ page }) => {
+  var mechTest = new Mechanical(page);
+
+  await mechTest.loginBPAS();
+  await mechTest.evaluationProcess();
 });
