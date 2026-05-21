@@ -6,13 +6,13 @@ export class RegistrationPage {
   readonly testEnvironment: string;
 
   // -- Constructor : Passed OwnerInfo
-  readonly ownerInfo: {
+  readonly OwnerInfo: {
     firstName: string;
     lastName: string;
   };
 
   // -- Constructor : Passed ContactInfo
-  readonly contactInfo: {
+  readonly ContactInfo: {
     mobileNumber: string;
     address: string;
     zipCode: string;
@@ -66,11 +66,11 @@ export class RegistrationPage {
         ? (process.env.TEST_Registration as string)
         : (process.env.LIVE_Registration as string);
 
-    this.ownerInfo = OwnerInfo;
-    this.contactInfo = ContactInfo;
+    this.OwnerInfo = OwnerInfo;
+    this.ContactInfo = ContactInfo;
 
-    var firstLetter = this.ownerInfo.firstName.split("");
-    this.userNameValue = firstLetter[0] + this.ownerInfo.lastName;
+    var firstLetter = this.OwnerInfo.firstName.split("");
+    this.userNameValue = firstLetter[0] + this.OwnerInfo.lastName;
 
     // Registration Type
     this.OwnerRegistration = page.getByLabel("Owner Registration");
@@ -135,17 +135,17 @@ export class RegistrationPage {
     await this.formOfOwnership.selectOption("Individual");
     await this.isOwnerApplicant.check();
     await this.title.selectOption("Mr.");
-    await this.firstName.fill(this.ownerInfo.firstName);
-    await this.lastName.fill(this.ownerInfo.lastName);
+    await this.firstName.fill(this.OwnerInfo.firstName);
+    await this.lastName.fill(this.OwnerInfo.lastName);
     await this.gender.selectOption("Male");
     await this.civilStatus.selectOption("Single");
   }
 
   async fillContact() {
     await this.email.fill("pvillanueva@geosolutions.com.ph");
-    await this.mobileinput.fill(this.contactInfo.mobileNumber);
-    await this.address.fill(this.contactInfo.address);
-    await this.zipCode.fill(this.contactInfo.zipCode);
+    await this.mobileinput.fill(this.ContactInfo.mobileNumber);
+    await this.address.fill(this.ContactInfo.address);
+    await this.zipCode.fill(this.ContactInfo.zipCode);
   }
 
   async fillAccount() {

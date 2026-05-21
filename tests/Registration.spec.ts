@@ -1,18 +1,32 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, request } from "@playwright/test";
 import { RegistrationPage } from "../pages//Online Application/Registration/registration.page";
 
 test("Registration", async ({ page }) => {
+  const dummyUserUrl = await request.newContext({
+    baseURL: "https://randomuser.me/api",
+  });
+
+  const requestUser = await dummyUserUrl.get("/api", {
+    params: { gender: "male" },
+  });
+
+  const responseData = await requestUser.json();
+
+  let user = responseData.results[0];
+
+  dummyUserUrl.dispose();
+
   var Rp = new RegistrationPage({
     page: page,
-    testEnvironment: "LIVE",
+    testEnvironment: "TEST",
     OwnerInfo: {
-      firstName: "julius",
-      lastName: "larena",
+      firstName: user.name.first,
+      lastName: user.name.last,
     },
     ContactInfo: {
-      mobileNumber: "09155452264",
-      address: "B11 L7 Molino Homes Molino IV, Bacoor, Cavite",
-      zipCode: "4102",
+      mobileNumber: user.phone,
+      address: `${user.location.street.number} ${user.location.street.name} ${user.location.city} ${user.location.state}`,
+      zipCode: `${user.location.postcode}`,
     },
   });
 
