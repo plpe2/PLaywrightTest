@@ -7,6 +7,7 @@ import { Mechanical } from "../pages/BPAS/Evaluation/Mechanical.page";
 import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
 import { Sanitary } from "../pages/BPAS/Evaluation/Sanitary.page";
 import { Electronics } from "../pages/BPAS/Evaluation/Electronics.page";
+import { Plumbing } from "../pages/BPAS/Evaluation/Plumbing.page";
 
 test("Architectural Evaluation", async ({ page }) => {
   var archiTest = new Architectural(page);
@@ -56,4 +57,11 @@ test("Electronics Evaluation", async ({ page }) => {
 
   await eletronicTest.loginBPAS();
   await eletronicTest.evaluationProcess();
+});
+
+test("Plumbing Evaluation", async ({ page }) => {
+  var plumbTest = new Plumbing(page);
+
+  await plumbTest.loginBPAS();
+  await plumbTest.evaluationProcess();
 });
