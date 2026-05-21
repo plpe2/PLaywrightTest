@@ -1,0 +1,59 @@
+{
+  // Place your PLaywrightTest workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+
+  "Short await Template": {
+    "scope": "javascript,typescript",
+    "prefix": "awp",
+    "body": "await this.page.",
+    "description": "shorthand await for current page",
+  },
+
+  "async function on test": {
+    "scope": "javascript,typescript",
+    "prefix": "af",
+    "body": "async $1(){}",
+    "description": "async function for pages",
+  },
+
+  "click function with locator": {
+    "scope": "javascript,typescript",
+    "prefix": "awc",
+    "body": "await this.page.$1.click()",
+    "description": "shorthand click function for defined locator",
+  },
+
+  "fill function with locator": {
+    "scope": "javascript,typescript",
+    "prefix": "awf",
+    "body": "await this.page.$1.fill('1')",
+    "description": "shorthand for fill function for defined locator",
+  },
+
+  "evaluation criteria workflow": {
+    "scope": "javascript, typescript",
+    "prefix": "awe",
+    "body": [
+      " await this.page.$1.fill('1')",
+      "await this.page.$2.click()",
+      "await this.closeSaveEval()",
+      "await this.page.$3.click()",
+    ],
+    "description": "Full evaluation encoding of evaluation criteria",
+  },
+  //
+  // You can also restrict snippets to specific files using include/exclude patterns:
+  // "Test snippet": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "test",
+  // 	"body": "test('$1', () => {\n\t$0\n});",
+  // 	"include": ["**/*.test.ts", "*.spec.ts"],
+  // 	"exclude": ["**/temp/*.ts"],
+  // 	"description": "Insert test block"
+  // }
+}
