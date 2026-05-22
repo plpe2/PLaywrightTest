@@ -5,6 +5,8 @@ import { WaitUI } from "../../../helpers/WaitUI.helper";
 export class BpApplication {
   readonly page: Page;
   readonly WaitUI: WaitUI;
+  readonly testEnvironment: boolean;
+  readonly urlLink: string;
 
   // Section: Project Information
   readonly Pin: Locator;
@@ -33,16 +35,23 @@ export class BpApplication {
 
   constructor({
     page,
+    testEnvironment,
     isNewAccount,
     isExisting,
     BpAppInfo,
   }: {
     page: Page;
+    testEnvironment: boolean;
     isNewAccount: boolean;
     isExisting: boolean;
     BpAppInfo: BldgAppInfo;
   }) {
     this.page = page;
+    this.testEnvironment = testEnvironment;
+    this.urlLink = testEnvironment
+      ? (process.env.TEST_OnlineApp as string)
+      : (process.env.LIVE_OnlineApp as string);
+
     this.BldgAppInfo = BpAppInfo;
     this.isExisting = isExisting;
     this.isNewAccount = isNewAccount;

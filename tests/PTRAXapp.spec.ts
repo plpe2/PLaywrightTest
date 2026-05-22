@@ -9,13 +9,13 @@ test("Receiving into Inspection", async ({ page }) => {
   const ptraxHandler = new ProcessHandler(page);
 
   await ptraxHandler.loginAcc("receiving");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00013",
+    "NBP2605-00014",
     await ptraxHandler.jumpSteps[3],
   );
   await ptraxHandler.loginAcc("siteverification");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
 });
 
 test("Inspection into Evaluation", async ({ page }) => {
@@ -25,11 +25,11 @@ test("Inspection into Evaluation", async ({ page }) => {
 
   await ptraxHandler.loginAcc("siteverification");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00013",
+    "NBP2605-00014",
     await ptraxHandler.jumpSteps[4],
   );
   await ptraxHandler.loginAcc("evaluator");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
 });
 
 test("Evaluation into Treasury", async ({ page }) => {
@@ -39,11 +39,11 @@ test("Evaluation into Treasury", async ({ page }) => {
 
   await ptraxHandler.loginAcc("evaluator");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00013",
+    "NBP2605-00014",
     await ptraxHandler.jumpSteps[8],
   );
   await ptraxHandler.loginAcc("billingdbo");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
 });
 
 test("Treasury into Collection", async ({ page }) => {
@@ -53,11 +53,11 @@ test("Treasury into Collection", async ({ page }) => {
 
   await ptraxHandler.loginAcc("billingdbo");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00013",
+    "NBP2605-00014",
     await ptraxHandler.jumpSteps[9],
   );
   await ptraxHandler.loginAcc("treasury");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
 });
 
 test("Collection into Releasing", async ({ page }) => {
@@ -67,9 +67,9 @@ test("Collection into Releasing", async ({ page }) => {
 
   await ptraxHandler.loginAcc("treasury");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00013",
+    "NBP2605-00014",
     await ptraxHandler.jumpSteps[11],
   );
   await ptraxHandler.loginAcc("releasingdbo");
-  await refactorePTRAX.ReceiveApp("NBP2605-00013");
+  await refactorePTRAX.ReceiveApp("NBP2605-00014");
 });

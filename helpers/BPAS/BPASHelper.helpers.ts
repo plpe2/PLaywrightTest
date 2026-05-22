@@ -38,4 +38,9 @@ export class BPASHelper {
     // wait for modal to disappear
     await expect(modal).not.toBeVisible();
   }
+
+  async searchApp(AppNo: string) {
+    await this.page.getByRole("textbox", { name: "Enter Keyword" }).fill(AppNo);
+    await this.page.locator("#btnSearchEvalRecord").click();
+  }
 }
