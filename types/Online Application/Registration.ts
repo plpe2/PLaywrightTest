@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export type RegistrationTypes = {
   page: Page;
-  testEnvironment: string;
+  testEnvironment: boolean;
   OwnerInfo: {
     firstName: string;
     lastName: string;
