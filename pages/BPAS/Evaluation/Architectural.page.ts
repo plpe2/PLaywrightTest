@@ -2,8 +2,12 @@ import { Page } from "@playwright/test";
 import { BPASHelper } from "../../../helpers/BPAS/BPASHelper.helpers";
 
 export class Architectural extends BPASHelper {
-  constructor(page: Page) {
+  readonly AppNo: string;
+
+  constructor(page: Page, AppNo: string) {
     super(page);
+
+    this.AppNo = AppNo;
   }
 
   // Main function for the evaluation process
@@ -13,7 +17,8 @@ export class Architectural extends BPASHelper {
       this.bpasURL + "PermitEvaluation/PermitEvaluationArchitectural",
     );
 
-    await this.page.getByRole("gridcell", { name: "NBP2605-00011" }).click();
+    await this.searchApp(this.AppNo);
+    await this.page.getByRole("gridcell", { name: this.AppNo }).click();
     await this.FZandFR();
     // await this.BP();
     // await this.AS();

@@ -2,8 +2,12 @@ import { expect, Page } from "@playwright/test";
 import { BPASHelper } from "../../../helpers/BPAS/BPASHelper.helpers";
 
 export class Structural extends BPASHelper {
-  constructor(page: Page) {
+  readonly AppNo: string;
+
+  constructor(page: Page, AppNo: string) {
     super(page);
+
+    this.AppNo = AppNo;
   }
 
   async evaluationProcess() {
@@ -11,7 +15,8 @@ export class Structural extends BPASHelper {
       this.bpasURL + "PermitEvaluation/PermitEvaluationStructural",
     );
 
-    await this.page.getByRole("gridcell", { name: "NBP2605-00009" }).click();
+    await this.searchApp(this.AppNo);
+    await this.page.getByRole("gridcell", { name: this.AppNo }).click();
     await this.page.locator('input[name="GDCRReferralCode"]').fill("1");
     await this.page.locator("#btnSaveBldgEvalStructuralGDCR").click();
     await expect(this.page.locator("#modalbtnSaveB")).toBeVisible();

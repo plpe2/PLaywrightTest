@@ -2,8 +2,12 @@ import { expect, Page } from "@playwright/test";
 import { BPASHelper } from "../../../helpers/BPAS/BPASHelper.helpers";
 
 export class Geodetic extends BPASHelper {
-  constructor(page: Page) {
+  readonly Appno: string;
+
+  constructor(page: Page, AppNo: string) {
     super(page);
+
+    this.Appno = AppNo;
   }
 
   // Main evaluation process of Geodetic Evaluation
@@ -12,7 +16,9 @@ export class Geodetic extends BPASHelper {
       this.bpasURL + "PermitEvaluation/PermitEvaluationGeodetic",
     );
 
-    await this.page.getByRole("gridcell", { name: "NBP2605-00011" }).click();
+    await this.searchApp(this.Appno);
+
+    await this.page.getByRole("gridcell", { name: this.Appno }).click();
     await await this.page.getByText("Compliant").first().click();
     await await this.page.getByText("Compliant").nth(1).click();
     await await this.page.getByText("Compliant").nth(2).click();

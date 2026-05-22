@@ -8,12 +8,13 @@ test("BpApplication", async ({ page }) => {
   var loginApp = new loginOnlineApplication(page);
   var BpApp = new BpApplication({
     page,
+    testEnvironment: false,
     isNewAccount: false,
     isExisting: true,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "mansalan",
+      BldgName: "CRAYN",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -30,7 +31,7 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000017", "mmansalan");
+  await loginApp.loginAccount("0000037", "rchow");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
