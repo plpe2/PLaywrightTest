@@ -207,7 +207,7 @@ export class BpApplication {
         name: "Search Existing Professional",
       })
       .click();
-    await this.page.getByRole("gridcell", { name: "ROMELO, MARTIN" }).click();
+    await this.page.getByRole("gridcell", { name: "OCAMPO, REINNER" }).click();
     await this.page.getByRole("button", { name: "Select" }).click();
     await this.page.waitForTimeout(4000);
     await this.Nextbtn.click();

@@ -40,12 +40,12 @@ test("BpApplication", async ({ page }) => {
   var BpApp = new BpApplication({
     page,
     testEnvironment: false,
-    isNewAccount: true,
+    isNewAccount: false,
     isExisting: false,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "ureña",
+      BldgName: "gabriel",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
