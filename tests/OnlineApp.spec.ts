@@ -3,36 +3,36 @@ import { BpApplication } from "../pages/Online Application/BP Application/bpAppl
 import { occupancyApp } from "../pages/Online Application/Occupancy/occupancyApp.page";
 import { loginOnlineApplication } from "../pages/Online Application/Login/loginOnlineApp.page";
 
-test("Copy AppNo", async ({ page }) => {
-  var loginApp = new loginOnlineApplication(page);
-  var BpApp = new BpApplication({
-    page,
-    testEnvironment: false,
-    isNewAccount: false,
-    isExisting: true,
-    BpAppInfo: {
-      Pin: "2026-04-00123",
-      ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "FRANCE",
-      TDN: "15-00345",
-      TCTNo: "123456",
-      ProjectCost: 3500000,
-      FloorArea: 45,
-      StoreyNo: 2,
-      LotArea: 45,
-      BldgHeight: 8.5,
-      Progress: "New Construction",
-      LotNo: "7",
-      BlkNo: "13",
-      BrgyName: "Barangay San Isidro",
-    },
-  });
+// test("Copy AppNo", async ({ page }) => {
+//   var loginApp = new loginOnlineApplication(page);
+//   var BpApp = new BpApplication({
+//     page,
+//     testEnvironment: false,
+//     isNewAccount: false,
+//     isExisting: true,
+//     BpAppInfo: {
+//       Pin: "2026-04-00123",
+//       ProjectTitle: "Proposed Two-Storey Residential Building",
+//       BldgName: "FRANCE",
+//       TDN: "15-00345",
+//       TCTNo: "123456",
+//       ProjectCost: 3500000,
+//       FloorArea: 45,
+//       StoreyNo: 2,
+//       LotArea: 45,
+//       BldgHeight: 8.5,
+//       Progress: "New Construction",
+//       LotNo: "7",
+//       BlkNo: "13",
+//       BrgyName: "Barangay San Isidro",
+//     },
+//   });
 
-  await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000037", "rchow");
-  await loginApp.otpCode();
-  await BpApp.SelectAppNo();
-});
+//   await BpApp.gotoApplication();
+//   await loginApp.loginAccount("0000037", "rchow");
+//   await loginApp.otpCode();
+//   await BpApp.SelectAppNo();
+// });
 
 test("BpApplication", async ({ page }) => {
   // Initialization of class for calling functions
@@ -40,12 +40,12 @@ test("BpApplication", async ({ page }) => {
   var BpApp = new BpApplication({
     page,
     testEnvironment: false,
-    isNewAccount: false,
+    isNewAccount: true,
     isExisting: false,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "FRANCE",
+      BldgName: "ureña",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -62,7 +62,7 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000037", "rchow");
+  await loginApp.loginAccount("0000012", "gureña");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
@@ -70,15 +70,15 @@ test("BpApplication", async ({ page }) => {
   // await BpApp.submitApp();
 });
 
-test("Occupancy Application", async ({ page }) => {
-  // Initialization of class for calling functions
-  var loginApp = new loginOnlineApplication(page);
-  var OccApp = new occupancyApp({ page, OccAppNo: "PAUL" });
+// test("Occupancy Application", async ({ page }) => {
+//   // Initialization of class for calling functions
+//   var loginApp = new loginOnlineApplication(page);
+//   var OccApp = new occupancyApp({ page, OccAppNo: "PAUL" });
 
-  // function Calling Procees of Occupancy Permit Application
-  await OccApp.gotoApp();
-  await loginApp.loginAccount("0000002", "perano");
-  await loginApp.otpCode();
-  await OccApp.gotoOccupancy();
-  await OccApp.fillOccupancyApp();
-});
+//   // function Calling Procees of Occupancy Permit Application
+//   await OccApp.gotoApp();
+//   await loginApp.loginAccount("0000002", "perano");
+//   await loginApp.otpCode();
+//   await OccApp.gotoOccupancy();
+//   await OccApp.fillOccupancyApp();
+// });

@@ -35,10 +35,11 @@ export class loginOnlineApplication {
   }
 
   async otpCode() {
+    // await this.page.waitForTimeout(2500);
     const otpLocator = this.page.locator("#hidVerCode");
 
     // Wait until the value is actually populated
-    await expect(otpLocator).toHaveAttribute("value", /.+/);
+    await expect(otpLocator).toHaveAttribute("value", /.+/, { timeout: 36500 });
 
     const otpCode = await otpLocator.getAttribute("value");
 

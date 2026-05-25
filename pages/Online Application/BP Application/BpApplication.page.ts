@@ -89,9 +89,7 @@ export class BpApplication {
   }
 
   async gotoApplication() {
-    await this.page.goto(
-      "http://192.168.20.71:1024/Account/Login?statusCode=0",
-    );
+    await this.page.goto(this.urlLink);
   }
 
   async SelectAppNo() {
