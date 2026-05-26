@@ -18,7 +18,7 @@ test("Registration", async ({ page }) => {
 
   var Rp = new RegistrationPage({
     page: page,
-    testEnvironment: false,
+    testEnvironment: true,
     OwnerInfo: {
       firstName: user.name.first,
       lastName: user.name.last,

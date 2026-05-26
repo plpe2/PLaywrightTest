@@ -11,7 +11,7 @@ export class BPASHelper {
 
   constructor(page: Page) {
     this.page = page;
-    this.bpasURL = "http://192.168.45.33:3010/";
+    this.bpasURL = "http://192.168.20.71:1027/";
 
     this.userName = page.getByRole("textbox", { name: "Username" });
     this.password = page.getByRole("textbox", { name: "Password" });

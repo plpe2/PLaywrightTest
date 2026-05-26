@@ -27,7 +27,7 @@ export class ProcessHandler {
   };
 
   private readonly baseUrl =
-    "http://192.168.45.33:3007/Account/DtraxLogin.aspx";
+    "http://192.168.20.71:1023/Account/DtraxLogin.aspx";
 
   constructor(page: Page) {
     this.page = page;

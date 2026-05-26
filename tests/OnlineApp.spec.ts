@@ -39,13 +39,13 @@ test("BpApplication", async ({ page }) => {
   var loginApp = new loginOnlineApplication(page);
   var BpApp = new BpApplication({
     page,
-    testEnvironment: false,
+    testEnvironment: true,
     isNewAccount: false,
-    isExisting: false,
+    isExisting: true,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "gabriel",
+      BldgName: "WILLIAM",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -62,12 +62,12 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000012", "gureña");
+  await loginApp.loginAccount("0000049", "WWÜNSCHE");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
   await BpApp.DocumentSubmission();
-  // await BpApp.submitApp();
+  await BpApp.submitApp();
 });
 
 // test("Occupancy Application", async ({ page }) => {

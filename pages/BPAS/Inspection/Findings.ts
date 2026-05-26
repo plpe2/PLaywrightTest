@@ -24,6 +24,10 @@ export class Findings extends BPASHelper {
     await this.page.goto(this.urlLink + "Inspection/Inspection");
     await this.page.getByRole("link", { name: "Findings" }).click();
     await this.page
+      .locator("#tblMissionOrder_filter")
+      .getByRole("searchbox", { name: "Search:" })
+      .fill(AppNo);
+    await this.page
       .locator("#tblMissionOrder")
       .getByRole("gridcell", { name: AppNo })
       .click();

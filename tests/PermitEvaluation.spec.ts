@@ -7,7 +7,7 @@ import { Electrical } from "../pages/BPAS/Evaluation/Electrical.page";
 import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
 
 test("Architectural Evaluation", async ({ page }) => {
-  var archiTest = new Architectural(page, "NBP2605-00008");
+  var archiTest = new Architectural(page, "NBP2605-00021");
 
   await archiTest.loginBPAS();
   await archiTest.evaluationProcess();
@@ -15,14 +15,14 @@ test("Architectural Evaluation", async ({ page }) => {
 });
 
 test("Geodetic Evaluation", async ({ page }) => {
-  var geoTest = new Geodetic(page, "NBP2605-00008");
+  var geoTest = new Geodetic(page, "NBP2605-00021");
 
   await geoTest.loginBPAS();
   await geoTest.evaluationProcess();
 });
 
 test("Electrical Evaluation", async ({ page }) => {
-  var elecTest = new Electrical(page, "NBP2605-00008");
+  var elecTest = new Electrical(page, "NBP2605-00021");
 
   await elecTest.loginBPAS();
   await elecTest.evaluationProcess();
@@ -36,7 +36,7 @@ test("Electrical Evaluation", async ({ page }) => {
 // });
 
 test("Structural Evaluation", async ({ page }) => {
-  var structTest = new Structural(page, "NBP2605-00008");
+  var structTest = new Structural(page, "NBP2605-00021");
 
   await structTest.loginBPAS();
   await structTest.evaluationProcess();
