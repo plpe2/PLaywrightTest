@@ -53,11 +53,11 @@ test("Treasury into Collection", async ({ page }) => {
 
   await ptraxHandler.loginAcc("billingdbo");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00020",
+    "NBP2605-00021",
     await ptraxHandler.jumpSteps[9],
   );
   await ptraxHandler.loginAcc("treasury");
-  await refactorePTRAX.ReceiveApp("NBP2605-00020");
+  await refactorePTRAX.ReceiveApp("NBP2605-00021");
 });
 
 test("Collection into Releasing", async ({ page }) => {
@@ -67,9 +67,9 @@ test("Collection into Releasing", async ({ page }) => {
 
   await ptraxHandler.loginAcc("treasury");
   await refactorePTRAX.JumpApp(
-    "NBP2605-00020",
+    "NBP2605-00021",
     await ptraxHandler.jumpSteps[11],
   );
   await ptraxHandler.loginAcc("releasingdbo");
-  await refactorePTRAX.ReceiveApp("NBP2605-00020");
+  await refactorePTRAX.ReceiveApp("NBP2605-00021");
 });
