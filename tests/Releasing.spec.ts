@@ -1,0 +1,9 @@
+import test from "@playwright/test";
+import { Releasing } from "../pages/Releasing/Releasing,pages";
+
+test("Releasing ", async ({ page }) => {
+  var BPASReleasing = new Releasing(page);
+
+  await BPASReleasing.loginBPAS();
+  await BPASReleasing.releasingProcess("");
+});
