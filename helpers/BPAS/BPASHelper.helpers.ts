@@ -3,6 +3,7 @@ import { expect, Locator, Page } from "@playwright/test";
 export class BPASHelper {
   readonly page: Page;
   readonly bpasURL: string;
+  readonly testEnvironment: boolean;
 
   // Login elements
   readonly userName: Locator;
@@ -11,7 +12,10 @@ export class BPASHelper {
 
   constructor(page: Page) {
     this.page = page;
-    this.bpasURL = "http://192.168.20.71:1027/";
+    this.testEnvironment = true;
+    this.bpasURL = this.testEnvironment
+      ? (process.env.TEST_BPAS as string)
+      : (process.env.LIVE_BPAS as string);
 
     this.userName = page.getByRole("textbox", { name: "Username" });
     this.password = page.getByRole("textbox", { name: "Password" });

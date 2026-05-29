@@ -89,9 +89,53 @@ export class BpApplication {
   }
 
   async gotoApplication() {
-    await this.page.goto(
-      "http://192.168.20.71:1024/Account/Login?statusCode=0",
-    );
+    await this.page.goto(this.urlLink);
+  }
+
+  async SelectAppNo() {
+    await this.WaitUI.waitSpinner();
+
+    if (this.isExisting) {
+      await this.page
+        .getByRole("gridcell", {
+          name: this.BldgAppInfo.BldgName.toUpperCase(),
+        })
+        .click();
+
+      await this.page.getByRole("button", { name: "Select" }).click();
+      await this.WaitUI.waitSpinner();
+    } else {
+      if (!this.isNewAccount) {
+        await this.page.getByRole("button", { name: "Add New" }).click();
+        await this.WaitUI.waitSpinner();
+      } else {
+        // await this.WaitUI.waitSpinner();
+        // await this.page.locator(".modal-content").waitFor({
+        //   state: "detached",
+        // });
+        await this.page.waitForTimeout(2000);
+      }
+    }
+
+    await this.WaitUI.waitSpinner();
+    await this.page.getByRole("link", { name: "Next >" }).click();
+
+    const messageDialog = this.page.getByRole("dialog", { name: "Message" });
+
+    if (await messageDialog.isVisible()) {
+      await this.page.getByRole("button", { name: "OK" }).click();
+      await this.page.getByRole("link", { name: "Next >" }).click();
+    }
+    await this.page.waitForTimeout(2500);
+    await this.page.getByRole("link", { name: "Next >" }).click();
+    await this.page.waitForTimeout(2500);
+    await this.page.getByRole("link", { name: "Next >" }).click();
+    await this.page.getByRole("link", { name: "Next >" }).click();
+
+    // await this.page.waitForTimeout(5000);
+    // await this.page.getByRole("link", { name: "Next >" }).click();
+
+    await this.page.waitForTimeout(5000);
   }
 
   async ProjectInfoEncoding() {

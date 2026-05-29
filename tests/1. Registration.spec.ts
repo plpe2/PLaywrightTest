@@ -1,5 +1,5 @@
 import { test, expect, request } from "@playwright/test";
-import { RegistrationPage } from "../pages//Online Application/Registration/registration.page";
+import { RegistrationPage } from "../pages/Online Application/Registration/registration.page";
 
 test("Registration", async ({ page }) => {
   const dummyUserUrl = await request.newContext({
