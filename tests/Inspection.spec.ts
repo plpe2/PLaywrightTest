@@ -3,15 +3,15 @@ import { MissionOrder } from "../pages/BPAS/Inspection/MissionOrder.page";
 import { Findings } from "../pages/BPAS/Inspection/Findings";
 
 test("Generate Mission Order", async ({ page }) => {
-  var InspectionMO = new MissionOrder({ page: page, testEnvironment: false });
+  var InspectionMO = new MissionOrder({ page: page, testEnvironment: true });
 
   await InspectionMO.loginBPAS();
-  await InspectionMO.GenerateMissionOrder("CFE2605-00001");
+  await InspectionMO.GenerateMissionOrder("NBP2605-00022");
 });
 
 test("Encoding Findings Remarks", async ({ page }) => {
-  var FindingsTab = new Findings({ page: page, testEnvironment: false });
+  var FindingsTab = new Findings({ page: page, testEnvironment: true });
 
   await FindingsTab.loginBPAS();
-  await FindingsTab.EncodeRemarks("CFE2605-00001");
+  await FindingsTab.EncodeRemarks("NBP2605-00022");
 });

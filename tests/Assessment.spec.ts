@@ -5,5 +5,5 @@ test("Assess fee", async ({ page }) => {
   var AssessModule = new Assessment({ page: page, testEnvironment: true });
 
   await AssessModule.loginBPAS();
-  await AssessModule.AssessApp("NBP2605-00021");
+  await AssessModule.AssessApp("NBP2605-00022");
 });
