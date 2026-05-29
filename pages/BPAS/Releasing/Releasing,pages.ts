@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { BPASHelper } from "../../helpers/BPAS/BPASHelper.helpers";
+import { BPASHelper } from "../../../helpers/BPAS/BPASHelper.helpers";
 
 export class Releasing extends BPASHelper {
   constructor(page: Page) {
