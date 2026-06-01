@@ -33,6 +33,6 @@ export class MissionOrder extends BPASHelper {
     await this.page.getByRole("button", { name: "Assign" }).click();
     await this.page.locator("#txtRemarks").fill("1");
     await this.page.getByRole("button", { name: "Save Mission Order" }).click();
-    await this.page.waitForTimeout(5000);
+    await this.page.getByRole("button", { name: "OK" }).click();
   }
 }
