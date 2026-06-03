@@ -5,5 +5,5 @@ test("WebPortal Receiving", async ({ page }) => {
   var WebPortal = new ReceiveApp({ page: page, testEnvironment: true });
 
   await WebPortal.loginWebPortal();
-  await WebPortal.ReceiveApp("NBP2605-00021");
+  await WebPortal.ReceiveApp("NBP2606-00006");
 });

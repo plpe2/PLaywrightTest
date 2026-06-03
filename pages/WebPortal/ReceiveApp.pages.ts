@@ -40,7 +40,7 @@ export class ReceiveApp {
     await expect(
       this.page.getByText("A3. Valid Government ID Card"),
     ).toBeVisible();
-    await this.page.waitForTimeout(10000);
+    await this.page.waitForTimeout(6000);
     await this.page.getByRole("button", { name: "Submit Application" }).click();
     // const submittedDocsUrl = await request.newContext({
     //   baseURL: this.urlLink,

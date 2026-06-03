@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
-import { BpApplication } from "../pages/Online Application/BP Application/bpApplication.page";
 import { occupancyApp } from "../pages/Online Application/Occupancy/occupancyApp.page";
 import { loginOnlineApplication } from "../pages/Online Application/Login/loginOnlineApp.page";
+import { BpApplication } from "../pages/Online Application/BP Application/BpApplication.page";
 
 // test("Copy AppNo", async ({ page }) => {
 //   var loginApp = new loginOnlineApplication(page);
@@ -45,7 +45,7 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "MARTIN",
+      BldgName: "DIAZ",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -62,7 +62,7 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000052", "JMARTIN");
+  await loginApp.loginAccount("0000008", "MDIAZ");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
