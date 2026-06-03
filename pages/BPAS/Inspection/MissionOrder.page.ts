@@ -23,6 +23,9 @@ export class MissionOrder extends BPASHelper {
   async GenerateMissionOrder(AppNo: string) {
     await this.page.goto(this.urlLink + "Inspection/Inspection");
 
+    await await this.page
+      .getByRole("searchbox", { name: "Search:" })
+      .fill(AppNo);
     await this.page.getByRole("gridcell", { name: AppNo }).click();
     await this.page.getByRole("button", { name: "Generate" }).click();
     await this.page.getByRole("button", { name: "Select" }).click();
