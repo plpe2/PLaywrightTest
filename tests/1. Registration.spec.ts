@@ -7,7 +7,7 @@ test("Registration", async ({ page }) => {
   });
 
   const requestUser = await dummyUserUrl.get("/api", {
-    params: { gender: "male" },
+    params: { gender: "male", nat: "us" },
   });
 
   const responseData = await requestUser.json();
