@@ -1,38 +1,33 @@
 import { Locator, Page } from "@playwright/test";
 import { ProcessHandler } from "../../helpers/PTRAX/ProcessHandler.helpers";
 
-export class RefactoredReceiving {
-  readonly page: Page;
-  readonly PTRAXHelper: ProcessHandler;
-
+export class RefactoredReceiving extends ProcessHandler {
   constructor(page: Page) {
-    this.page = page;
-
-    this.PTRAXHelper = new ProcessHandler(page);
+    super({ page: page, testEnvironment: false });
   }
 
   async ReceiveApp(appNumber: string) {
-    await this.PTRAXHelper.clickCheckbox(appNumber);
-    await this.PTRAXHelper.receiveBtn.click();
+    await this.clickCheckbox(appNumber);
+    await this.receiveBtn.click();
 
-    await this.PTRAXHelper.proceedBtn.waitFor({ state: "visible" });
+    await this.proceedBtn.waitFor({ state: "visible" });
 
-    await this.PTRAXHelper.AcceptDialog();
+    await this.AcceptDialog();
 
-    await this.PTRAXHelper.proceedBtn.click();
+    await this.proceedBtn.click();
 
     await this.page.locator("xpath=/html/body/div[13]/div[1]/a/span").click();
   }
 
   async JumpApp(appNumber: string, step: string) {
-    // await this.PTRAXHelper.waitForMailbox();
+    // await this.waitForMailbox();
 
     await this.page.getByRole("gridcell", { name: appNumber }).click();
 
-    await this.PTRAXHelper.jumpSelection.waitFor({ state: "attached" });
-    await this.PTRAXHelper.jumpSelection.selectOption(step);
+    await this.jumpSelection.waitFor({ state: "attached" });
+    await this.jumpSelection.selectOption(step, { force: true });
 
-    await this.PTRAXHelper.AcceptDialog();
+    await this.AcceptDialog();
     await this.page.locator("//*[@id='btnJump']").click();
   }
 }
