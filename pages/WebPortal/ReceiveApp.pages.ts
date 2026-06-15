@@ -34,28 +34,19 @@ export class ReceiveApp {
     await this.page.getByRole("button", { name: "Go" }).click();
     await this.page.getByRole("gridcell", { name: AppNo }).click();
 
-    await expect(this.page.getByText("Loading...").first()).toBeHidden({
-      timeout: 8500,
+    // await expect(this.page.getByText("Loading...").first()).toBeHidden({
+    //   timeout: 8500,
+    // });
+
+    await await this.page.getByText("Loading...").nth(1).waitFor({
+      state: "hidden",
+      timeout: 0,
     });
+
     await expect(
       this.page.getByText("A3. Valid Government ID Card"),
     ).toBeVisible();
-    await this.page.waitForTimeout(6000);
+    await this.page.waitForTimeout(3500);
     await this.page.getByRole("button", { name: "Submit Application" }).click();
-    // const submittedDocsUrl = await request.newContext({
-    //   baseURL: this.urlLink,
-    // });
-
-    // const checkDocs = await (
-    //   await submittedDocsUrl.get("/Building/GetSubmittedDocs", {
-    //     params: { appNo: AppNo, appType: "Building Permit" },
-    //   })
-    // ).json();
-
-    // expect(checkDocs.success).toBe(true);
-
-    // console.log(checkDocs);
-
-    // submittedDocsUrl.dispose();
   }
 }

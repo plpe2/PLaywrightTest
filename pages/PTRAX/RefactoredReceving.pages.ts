@@ -29,5 +29,6 @@ export class RefactoredReceiving extends ProcessHandler {
 
     await this.AcceptDialog();
     await this.page.locator("//*[@id='btnJump']").click();
+    await this.page.locator("xpath=/html/body/div[13]/div[1]/a/span").click();
   }
 }
