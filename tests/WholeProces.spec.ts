@@ -5,38 +5,56 @@ import { ProcessHandler } from "../helpers/PTRAX/ProcessHandler.helpers";
 import { MissionOrder } from "../pages/BPAS/Inspection/MissionOrder.page";
 import { Findings } from "../pages/BPAS/Inspection/Findings";
 
-test("Receiving to Releasing", async ({ page }) => {
+test("Receiving to Releasing", async ({ browser }) => {
   // global value for Application Number
-  const AppNumber = "NBP2606-00014";
-  const isTestEnvironment: boolean = false;
-  // Initialization of classes that will be used in this test
-  var WebPortal = new ReceiveApp({
-    page: page,
-    testEnvironment: isTestEnvironment,
+  const AppNumber = "NBP2606-000111";
+  const isTestEnvironment: boolean = true;
+  const context = await browser.newContext();
+  test.setTimeout(10 * 60 * 1000);
+
+  await test.step("PTRAX Receiving", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page);
+    var PTRAXLogin = new ProcessHandler({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+
+    // Inspection
+    await PTRAXLogin.loginAcc("receiving");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXLogin.jumpSteps[3]);
+    await PTRAXLogin.logout();
+
+    await page.close();
   });
-  var PTRAXProcess = new RefactoredReceiving(page);
-  var PTRAXLogin = new ProcessHandler({
-    page: page,
-    testEnvironment: isTestEnvironment,
+
+  await test.step("PTRAX Inspection", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page);
+    var PTRAXLogin = new ProcessHandler({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+
+    // Inspection
+    await PTRAXLogin.loginAcc("siteverification");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+
+    await page.close();
   });
-  var InspectionMO = new MissionOrder({ page: page, testEnvironment: false });
-  var FindingsTab = new Findings({ page: page, testEnvironment: false });
 
-  //Receving
-  await WebPortal.loginWebPortal();
-  await WebPortal.ReceiveApp(AppNumber);
+  await test.step("BPAS Inspection", async () => {
+    const page = await context.newPage();
+    var InspectionMO = new MissionOrder({ page: page, testEnvironment: true });
+    var FindingsTab = new Findings({ page: page, testEnvironment: true });
 
-  // Inspection
-  await PTRAXLogin.loginAcc("receiving");
-  await PTRAXProcess.ReceiveApp(AppNumber);
-  await PTRAXProcess.JumpApp(AppNumber, await PTRAXLogin.jumpSteps[3]);
-  await PTRAXLogin.logout();
-  await PTRAXLogin.loginAcc("siteverification");
-  await PTRAXProcess.ReceiveApp(AppNumber);
+    await InspectionMO.loginBPAS();
+    await InspectionMO.GenerateMissionOrder(AppNumber);
+    await FindingsTab.EncodeRemarks(AppNumber);
 
-  await InspectionMO.loginBPAS();
-  await InspectionMO.GenerateMissionOrder(AppNumber);
-  await FindingsTab.EncodeRemarks(AppNumber);
+    await page.close();
+  });
 
   //Evaluation
 
