@@ -5,9 +5,11 @@ import { Geodetic } from "../pages/BPAS/Evaluation/Geodetic.page";
 import { Electrical } from "../pages/BPAS/Evaluation/Electrical.page";
 
 import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
+import { Mechanical } from "../pages/BPAS/Evaluation/Mechanical.page";
+import { Electronics } from "../pages/BPAS/Evaluation/Electronics.page";
 
 test("Architectural Evaluation", async ({ page }) => {
-  var archiTest = new Architectural(page, "NBP2606-00006");
+  var archiTest = new Architectural(page, "NBP2606-00021");
 
   await archiTest.loginBPAS();
   await archiTest.evaluationProcess();
@@ -15,28 +17,28 @@ test("Architectural Evaluation", async ({ page }) => {
 });
 
 test("Geodetic Evaluation", async ({ page }) => {
-  var geoTest = new Geodetic(page, "NBP2606-00006");
+  var geoTest = new Geodetic(page, "NBP2606-00021");
 
   await geoTest.loginBPAS();
   await geoTest.evaluationProcess();
 });
 
 test("Electrical Evaluation", async ({ page }) => {
-  var elecTest = new Electrical(page, "NBP2606-00006");
+  var elecTest = new Electrical(page, "NBP2606-00021");
 
   await elecTest.loginBPAS();
   await elecTest.evaluationProcess();
 });
 
-// test("Mechanical Evaluation", async ({ page }) => {
-//   var mechTest = new Mechanical(page);
+test("Mechanical Evaluation", async ({ page }) => {
+  var mechTest = new Mechanical(page, "NBP2606-00021");
 
-//   await mechTest.loginBPAS();
-//   await mechTest.evaluationProcess();
-// });
+  await mechTest.loginBPAS();
+  await mechTest.evaluationProcess();
+});
 
 test("Structural Evaluation", async ({ page }) => {
-  var structTest = new Structural(page, "NBP2606-00006");
+  var structTest = new Structural(page, "NBP2606-00021");
 
   await structTest.loginBPAS();
   await structTest.evaluationProcess();
@@ -49,12 +51,12 @@ test("Structural Evaluation", async ({ page }) => {
 //   await sanitaryTest.evaluationProcess();
 // });
 
-// test("Electronics Evaluation", async ({ page }) => {
-//   var eletronicTest = new Electronics(page);
+test("Electronics Evaluation", async ({ page }) => {
+  var eletronicTest = new Electronics(page, "NBP2606-00021");
 
-//   await eletronicTest.loginBPAS();
-//   await eletronicTest.evaluationProcess();
-// });
+  await eletronicTest.loginBPAS();
+  await eletronicTest.evaluationProcess();
+});
 
 // test("Plumbing Evaluation", async ({ page }) => {
 //   var plumbTest = new Plumbing(page);
