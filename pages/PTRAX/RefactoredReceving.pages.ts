@@ -2,8 +2,8 @@ import { Locator, Page } from "@playwright/test";
 import { ProcessHandler } from "../../helpers/PTRAX/ProcessHandler.helpers";
 
 export class RefactoredReceiving extends ProcessHandler {
-  constructor(page: Page) {
-    super({ page: page, testEnvironment: false });
+  constructor(page: Page, testEnvironment: boolean) {
+    super({ page: page, testEnvironment: testEnvironment });
   }
 
   async ReceiveApp(appNumber: string) {

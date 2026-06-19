@@ -7,7 +7,7 @@ import { BpApplication } from "../pages/Online Application/BP Application/BpAppl
 //   var loginApp = new loginOnlineApplication(page);
 //   var BpApp = new BpApplication({
 //     page,
-//     testEnvironment: false,
+//     testEnvironment: true,
 //     isNewAccount: false,
 //     isExisting: true,
 //     BpAppInfo: {

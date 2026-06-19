@@ -1,10 +1,8 @@
 import test from "@playwright/test";
-import { BpProcess } from "../pages/PTRAX/BpProcess.pages";
 import { RefactoredReceiving } from "../pages/PTRAX/RefactoredReceving.pages";
 import { ProcessHandler } from "../helpers/PTRAX/ProcessHandler.helpers";
 
 test("Receiving into Inspection", async ({ page }) => {
-  const ptraxApp = new BpProcess(page);
   const refactorePTRAX = new RefactoredReceiving(page);
   const ptraxHandler = new ProcessHandler({
     page: page,
@@ -22,7 +20,6 @@ test("Receiving into Inspection", async ({ page }) => {
 });
 
 test("Inspection into Evaluation", async ({ page }) => {
-  const ptraxApp = new BpProcess(page);
   const refactorePTRAX = new RefactoredReceiving(page);
   const ptraxHandler = new ProcessHandler({
     page: page,
@@ -39,7 +36,6 @@ test("Inspection into Evaluation", async ({ page }) => {
 });
 
 test("Evaluation into Treasury", async ({ page }) => {
-  const ptraxApp = new BpProcess(page);
   const refactorePTRAX = new RefactoredReceiving(page);
   const ptraxHandler = new ProcessHandler({
     page: page,
@@ -56,7 +52,6 @@ test("Evaluation into Treasury", async ({ page }) => {
 });
 
 test("Treasury into Collection", async ({ page }) => {
-  const ptraxApp = new BpProcess(page);
   const refactorePTRAX = new RefactoredReceiving(page);
   const ptraxHandler = new ProcessHandler({
     page: page,
@@ -73,7 +68,6 @@ test("Treasury into Collection", async ({ page }) => {
 });
 
 test("Collection into Releasing", async ({ page }) => {
-  const ptraxApp = new BpProcess(page);
   const refactorePTRAX = new RefactoredReceiving(page);
   const ptraxHandler = new ProcessHandler({
     page: page,
