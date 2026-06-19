@@ -21,6 +21,6 @@ test("Full Inspection process", async ({ page }) => {
   var FindingsTab = new Findings({ page: page, testEnvironment: true });
 
   await InspectionMO.loginBPAS();
-  await InspectionMO.GenerateMissionOrder("SCA2606-00001");
-  await FindingsTab.EncodeRemarks("SCA2606-00001");
+  await InspectionMO.GenerateMissionOrder("NBP2606-00023");
+  await FindingsTab.EncodeRemarks("NBP2606-00023");
 });
