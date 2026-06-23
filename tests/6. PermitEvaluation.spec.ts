@@ -8,37 +8,36 @@ import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
 import { Mechanical } from "../pages/BPAS/Evaluation/Mechanical.page";
 import { Electronics } from "../pages/BPAS/Evaluation/Electronics.page";
 
-// test("Architectural Evaluation", async ({ page }) => {
-//   var archiTest = new Architectural(page, "NBP2606-00023");
+test("Architectural Evaluation", async ({ page }) => {
+  var archiTest = new Architectural(page, "NBP2606-00015");
 
-//   await archiTest.loginBPAS();
-//   await archiTest.evaluationProcess();
-//   await page.locator("#btnSaveBldgEval").click();
-// });
+  await archiTest.loginBPAS();
+  await archiTest.evaluationProcess();
+});
 
 test("Geodetic Evaluation", async ({ page }) => {
-  var geoTest = new Geodetic(page, "NBP2606-00023");
+  var geoTest = new Geodetic(page, "NBP2606-00015");
 
   await geoTest.loginBPAS();
   await geoTest.evaluationProcess();
 });
 
 test("Electrical Evaluation", async ({ page }) => {
-  var elecTest = new Electrical(page, "NBP2606-00023");
+  var elecTest = new Electrical(page, "NBP2606-00015");
 
   await elecTest.loginBPAS();
   await elecTest.evaluationProcess();
 });
 
 // test("Mechanical Evaluation", async ({ page }) => {
-//   var mechTest = new Mechanical(page, "NBP2606-00023");
+//   var mechTest = new Mechanical(page, "NBP2606-00015");
 
 //   await mechTest.loginBPAS();
 //   await mechTest.evaluationProcess();
 // });
 
 test("Structural Evaluation", async ({ page }) => {
-  var structTest = new Structural(page, "NBP2606-00023");
+  var structTest = new Structural(page, "NBP2606-00015");
 
   await structTest.loginBPAS();
   await structTest.evaluationProcess();
@@ -52,7 +51,7 @@ test("Structural Evaluation", async ({ page }) => {
 // });
 
 // test("Electronics Evaluation", async ({ page }) => {
-//   var eletronicTest = new Electronics(page, "NBP2606-00023");
+//   var eletronicTest = new Electronics(page, "NBP2606-00015");
 
 //   await eletronicTest.loginBPAS();
 //   await eletronicTest.evaluationProcess();
