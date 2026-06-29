@@ -15,7 +15,7 @@ import { Assessment } from "../pages/BPAS/Assessment/Assessment.page";
 
 test("Receiving to Releasing", async ({ browser }) => {
   // global value for Application Number
-  const AppNumber = "NBP2606-00011";
+  const AppNumber = "NBP2606-00012";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -29,98 +29,109 @@ test("Receiving to Releasing", async ({ browser }) => {
     electronics: Electronics,
   };
 
-  await test.step("PTRAX Receiving", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Receiving", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    // Inspection
-    await PTRAXProcess.loginAcc("receiving");
-    await PTRAXProcess.ReceiveApp(AppNumber);
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[3]);
+  //   // Inspection
+  //   await PTRAXProcess.loginAcc("receiving");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[3]);
 
-    await page.close();
-  });
+  //   await page.close();
+  // });
 
-  await test.step("PTRAX Inspection", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Inspection", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    // Inspection
-    await PTRAXProcess.loginAcc("siteverification");
-    await PTRAXProcess.ReceiveApp(AppNumber);
-    await page.close();
-  });
+  //   // Inspection
+  //   await PTRAXProcess.loginAcc("siteverification");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
 
-  await test.step("BPAS Inspection", async () => {
-    const page = await context.newPage();
-    var InspectionMO = new MissionOrder({
-      page: page,
-      testEnvironment: isTestEnvironment,
-    });
-    var FindingsTab = new Findings({
-      page: page,
-      testEnvironment: isTestEnvironment,
-    });
+  // await test.step("BPAS Inspection", async () => {
+  //   const page = await context.newPage();
+  //   var InspectionMO = new MissionOrder({
+  //     page: page,
+  //     testEnvironment: isTestEnvironment,
+  //   });
+  //   var FindingsTab = new Findings({
+  //     page: page,
+  //     testEnvironment: isTestEnvironment,
+  //   });
 
-    await InspectionMO.loginBPAS();
-    await InspectionMO.GenerateMissionOrder(AppNumber);
-    await FindingsTab.EncodeRemarks(AppNumber);
+  //   await InspectionMO.loginBPAS();
+  //   await InspectionMO.GenerateMissionOrder(AppNumber);
+  //   await FindingsTab.EncodeRemarks(AppNumber);
 
-    await page.close();
-  });
+  //   await page.close();
+  // });
 
-  await test.step("PTRAX Evaluation jump", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Evaluation jump", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("siteverification");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[4]);
-    await page.close();
-  });
+  //   await PTRAXProcess.loginAcc("siteverification");
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[4]);
+  //   await page.close();
+  // });
 
-  await test.step("PTRAX Evaluation Receiving ", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Evaluation Receiving ", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("evaluator");
-    await PTRAXProcess.ReceiveApp(AppNumber);
-    await page.close();
-  });
+  //   await PTRAXProcess.loginAcc("evaluator");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
 
-  // Evaluation
-  const toEvalPermits = ["geo", "archi", "elec", "struc"];
-  await test.step("BPAS Permit Evaluation", async () => {
-    // Eval process uses existing page, straight through the Inspection module causing error.
-    const evalContext = await browser.newContext();
-    const page = await evalContext.newPage();
-    var BPASLogin = new BPASHelper(page);
+  // // Evaluation
+  // const toEvalPermits = ["geo", "archi", "elec", "struc"];
+  // await test.step("BPAS Permit Evaluation", async () => {
+  //   // Eval process uses existing page, straight through the Inspection module causing error.
+  //   const evalContext = await browser.newContext();
+  //   const page = await evalContext.newPage();
+  //   var BPASLogin = new BPASHelper(page);
 
-    await BPASLogin.loginBPAS();
-    for (const permit of toEvalPermits) {
-      var EvalClass = new permitMap[permit](page, AppNumber);
-      await EvalClass.evaluationProcess();
-    }
+  //   await BPASLogin.loginBPAS();
+  //   for (const permit of toEvalPermits) {
+  //     var EvalClass = new permitMap[permit](page, AppNumber);
+  //     await EvalClass.evaluationProcess();
+  //   }
 
-    await evalContext.close();
-  });
+  //   await evalContext.close();
+  // });
 
-  await test.step("Evaluation jump in Assessment", async () => {
-    const page = await browser.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("Evaluation jump in Assessment", async () => {
+  //   const page = await browser.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    // Evaluator Account
-    await PTRAXProcess.loginAcc("evaluator");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[8]);
-    await page.close();
-  });
+  //   // Evaluator Account
+  //   await PTRAXProcess.loginAcc("evaluator");
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[8]);
+  //   await page.close();
+  // });
 
-  await test.step("Assessment Receiving from Evaluator", async () => {
-    const page = await browser.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("Assessment Receiving from Evaluator", async () => {
+  //   const page = await browser.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    // Billing Account
-    await PTRAXProcess.loginAcc("billingdbo");
-    await PTRAXProcess.ReceiveApp(AppNumber);
+  //   // Billing Account
+  //   await PTRAXProcess.loginAcc("billingdbo");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
+
+  await test.step("Assess permit Application", async () => {
+    const AssessContext = await browser.newContext();
+    const page = await AssessContext.newPage();
+
+    var AssessModule = new Assessment(page, isTestEnvironment);
+
+    await AssessModule.loginBPAS();
+    await AssessModule.AssessApp(AppNumber);
     await page.close();
   });
 

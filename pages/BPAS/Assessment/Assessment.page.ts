@@ -5,13 +5,7 @@ export class Assessment extends BPASHelper {
   readonly testEnvironment: boolean;
   readonly urlLink: string;
 
-  constructor({
-    page,
-    testEnvironment,
-  }: {
-    page: Page;
-    testEnvironment: boolean;
-  }) {
+  constructor(page: Page, testEnvironment: boolean) {
     super(page);
     this.testEnvironment = testEnvironment;
     this.urlLink = testEnvironment
