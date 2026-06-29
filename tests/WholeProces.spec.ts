@@ -11,10 +11,11 @@ import { Mechanical } from "../pages/BPAS/Evaluation/Mechanical.page";
 import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
 import { Electronics } from "../pages/BPAS/Evaluation/Electronics.page";
 import { BPASHelper } from "../helpers/BPAS/BPASHelper.helpers";
+import { Assessment } from "../pages/BPAS/Assessment/Assessment.page";
 
 test("Receiving to Releasing", async ({ browser }) => {
   // global value for Application Number
-  const AppNumber = "NBP2606-00009";
+  const AppNumber = "NBP2606-00011";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -30,7 +31,7 @@ test("Receiving to Releasing", async ({ browser }) => {
 
   await test.step("PTRAX Receiving", async () => {
     const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     // Inspection
     await PTRAXProcess.loginAcc("receiving");
@@ -42,7 +43,7 @@ test("Receiving to Releasing", async ({ browser }) => {
 
   await test.step("PTRAX Inspection", async () => {
     const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     // Inspection
     await PTRAXProcess.loginAcc("siteverification");
@@ -52,8 +53,14 @@ test("Receiving to Releasing", async ({ browser }) => {
 
   await test.step("BPAS Inspection", async () => {
     const page = await context.newPage();
-    var InspectionMO = new MissionOrder({ page: page, testEnvironment: true });
-    var FindingsTab = new Findings({ page: page, testEnvironment: true });
+    var InspectionMO = new MissionOrder({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+    var FindingsTab = new Findings({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
 
     await InspectionMO.loginBPAS();
     await InspectionMO.GenerateMissionOrder(AppNumber);
@@ -64,7 +71,7 @@ test("Receiving to Releasing", async ({ browser }) => {
 
   await test.step("PTRAX Evaluation jump", async () => {
     const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     await PTRAXProcess.loginAcc("siteverification");
     await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[4]);
@@ -73,7 +80,7 @@ test("Receiving to Releasing", async ({ browser }) => {
 
   await test.step("PTRAX Evaluation Receiving ", async () => {
     const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     await PTRAXProcess.loginAcc("evaluator");
     await PTRAXProcess.ReceiveApp(AppNumber);
@@ -95,6 +102,26 @@ test("Receiving to Releasing", async ({ browser }) => {
     }
 
     await evalContext.close();
+  });
+
+  await test.step("Evaluation jump in Assessment", async () => {
+    const page = await browser.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    // Evaluator Account
+    await PTRAXProcess.loginAcc("evaluator");
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[8]);
+    await page.close();
+  });
+
+  await test.step("Assessment Receiving from Evaluator", async () => {
+    const page = await browser.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    // Billing Account
+    await PTRAXProcess.loginAcc("billingdbo");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await page.close();
   });
 
   // await test.step("PTRAX Evaluation jump to Assesment", async () => {
