@@ -15,7 +15,7 @@ import { Assessment } from "../pages/BPAS/Assessment/Assessment.page";
 
 test("Receiving to Releasing", async ({ browser }) => {
   // global value for Application Number
-  const AppNumber = "NBP2606-00012";
+  const AppNumber = "NBP2607-00015";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -134,6 +134,38 @@ test("Receiving to Releasing", async ({ browser }) => {
     await AssessModule.AssessApp(AppNumber);
     await page.close();
   });
+
+  await test.step("Assessment into Treasury", async () => {
+    const AssessContext = await browser.newContext();
+    const page = await AssessContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, true);
+
+    await refactorePTRAX.loginAcc("billingdbo");
+    await refactorePTRAX.JumpApp(AppNumber, await refactorePTRAX.jumpSteps[9]);
+  });
+
+  await test.step("Receiving into Treasury", async () => {
+    const AssessContext = await browser.newContext();
+    const page = await AssessContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, true);
+
+    await refactorePTRAX.loginAcc("treasury");
+    await refactorePTRAX.ReceiveApp(AppNumber);
+  });
+
+  // test("Collection into Releasing", async () => {
+  //   const CollectionContext = await browser.newContext();
+  //   const page = await CollectionContext.newPage();
+  //   const refactorePTRAX = new RefactoredReceiving(page, true);
+
+  //   await refactorePTRAX.loginAcc("treasury");
+  //   await refactorePTRAX.JumpApp(
+  //     "NBP2606-00023",
+  //     await refactorePTRAX.jumpSteps[11],
+  //   );
+  //   await refactorePTRAX.loginAcc("releasingdbo");
+  //   await refactorePTRAX.ReceiveApp("NBP2606-00023");
+  // });
 
   // await test.step("PTRAX Evaluation jump to Assesment", async () => {
   //   var page = await context.newPage();
