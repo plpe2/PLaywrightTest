@@ -145,6 +145,8 @@ test("Receiving to Releasing", async ({ browser, request }) => {
 
   //   await refactorePTRAX.loginAcc("billingdbo");
   //   await refactorePTRAX.JumpApp(AppNumber, await refactorePTRAX.jumpSteps[9]);
+
+  //   await page.close();
   // });
 
   // await test.step("Receiving into Treasury", async () => {
@@ -154,17 +156,43 @@ test("Receiving to Releasing", async ({ browser, request }) => {
 
   //   await refactorePTRAX.loginAcc("treasury");
   //   await refactorePTRAX.ReceiveApp(AppNumber);
+
+  //   await page.close();
   // });
 
-  await test.step("Collection process", async () => {
-    const BuildingName = await traceApplication(request, AppNumber);
+  // await test.step("Collection process", async () => {
+  //   const BuildingName = await traceApplication(request, AppNumber);
+  //   const CollectionContext = await browser.newContext();
+  //   const page = await CollectionContext.newPage();
+
+  //   var BPASCollection = new Collection(page);
+
+  //   await BPASCollection.loginBPAS();
+  //   await BPASCollection.collectionProcess(BuildingName);
+
+  //   await page.close();
+  // });
+
+  await test.step("Collection jump into Releasing", async () => {
     const CollectionContext = await browser.newContext();
     const page = await CollectionContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
 
-    var BPASCollection = new Collection(page);
+    await refactorePTRAX.loginAcc("treasury");
+    await refactorePTRAX.JumpApp(AppNumber, await refactorePTRAX.jumpSteps[11]);
 
-    await BPASCollection.loginBPAS();
-    await BPASCollection.collectionProcess(BuildingName);
+    await page.close();
+  });
+
+  await test.step("Receiving into Releasing", async () => {
+    const ReleasingContext = await browser.newContext();
+    const page = await ReleasingContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
+
+    await refactorePTRAX.loginAcc("releasingdbo");
+    await refactorePTRAX.ReceiveApp(AppNumber);
+
+    await page.close();
   });
 
   // test("Collection into Releasing", async () => {
