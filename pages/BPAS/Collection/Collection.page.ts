@@ -8,7 +8,7 @@ export class Collection extends BPASHelper {
 
   async collectionProcess(AppNo: string) {
     await this.page.goto(this.bpasURL + "Collection/TaxCollection");
-    await this.page.getByRole("gridcell", { name: "JOSHUA MARTIN" }).click();
+    await this.page.getByRole("gridcell", { name: AppNo }).click();
     await this.page.getByRole("link", { name: "Payment Information" }).click();
     var val = await this.page.locator("#txtPayableAmount").inputValue();
     await this.page.locator("#txtPaymentAmount").fill(val);
