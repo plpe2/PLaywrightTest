@@ -11,9 +11,13 @@ export class Releasing extends BPASHelper {
       this.bpasURL + "PermitCertsIssuance/PermitCertsIssuanceForm",
     );
 
+    await this.page.getByRole("textbox", { name: "ENTER KEYWORD" }).fill(AppNo);
+    await this.page.locator("#cmbCertSearchBy").selectOption("Application No.");
+    await this.page.locator("#btnSearchCertRecord").click();
+
     await this.page
       .locator("#tblApplicationRecords")
-      .getByRole("gridcell", { name: new RegExp(`\\s+.*\\s+${AppNo}`) })
+      .getByRole("gridcell", { name: AppNo })
       .click();
     var checkAll = await this.page.locator("#chk_all");
     checkAll.click();
