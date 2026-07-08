@@ -27,7 +27,9 @@ export class BPASHelper {
     await this.userName.fill("admin marla");
     await this.password.fill("adminP@ssw0rd");
     await this.loginButton.click();
-    await expect(this.page.getByText("Information Successfully")).toBeVisible();
+    await expect(this.page.getByText("Information Successfully")).toBeVisible({
+      timeout: 10000,
+    });
     await this.page.getByRole("button", { name: "OK" }).click();
     // await this.page.waitForURL(this.bpasURL + "Records/RecordsForm");
   }

@@ -5,5 +5,5 @@ test("Releasing ", async ({ page }) => {
   var BPASReleasing = new Releasing(page);
 
   await BPASReleasing.loginBPAS();
-  await BPASReleasing.releasingProcess("NBP2606-00006");
+  await BPASReleasing.releasingProcess("NBP2607-00021");
 });

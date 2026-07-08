@@ -19,13 +19,14 @@ export class Releasing extends BPASHelper {
       .locator("#tblApplicationRecords")
       .getByRole("gridcell", { name: AppNo })
       .click();
-    var checkAll = await this.page.locator("#chk_all");
-    checkAll.click();
+    await this.page.locator("#chk_all").click();
+    await this.page.waitForTimeout(5000);
     await this.page
       .getByRole("button", { name: "Assign Permit Number" })
       .click();
     await this.page.getByRole("button", { name: "OK" }).click();
-    await checkAll.click();
+    await this.page.locator("#chk_all").click();
+    await await this.page.getByRole("button", { name: "Save" }).click();
     await this.page.waitForTimeout(5000);
   }
 }

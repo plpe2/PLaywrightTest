@@ -1,7 +1,5 @@
-import test, { expect } from "@playwright/test";
-import { ReceiveApp } from "../pages/WebPortal/ReceiveApp.pages";
+import test from "@playwright/test";
 import { RefactoredReceiving } from "../pages/PTRAX/RefactoredReceving.pages";
-import { ProcessHandler } from "../helpers/PTRAX/ProcessHandler.helpers";
 import { MissionOrder } from "../pages/BPAS/Inspection/MissionOrder.page";
 import { Findings } from "../pages/BPAS/Inspection/Findings";
 import { Architectural } from "../pages/BPAS/Evaluation/Architectural.page";
@@ -12,14 +10,13 @@ import { Structural } from "../pages/BPAS/Evaluation/Structural.page";
 import { Electronics } from "../pages/BPAS/Evaluation/Electronics.page";
 import { BPASHelper } from "../helpers/BPAS/BPASHelper.helpers";
 import { Assessment } from "../pages/BPAS/Assessment/Assessment.page";
-import { APIRequestContext } from "@playwright/test";
 import { traceApplication } from "../pages/WebPortal/api/getOwnerName.api";
 import { Collection } from "../pages/BPAS/Collection/Collection.page";
 import { Releasing } from "../pages/BPAS/Releasing/Releasing,pages";
 
 test("Receiving to Releasing", async ({ browser, request }) => {
   // global value for Application Number
-  const AppNumber = "NBP2607-00018";
+  const AppNumber = "NBP2607-00022";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -204,8 +201,4 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     await BPASReleasing.loginBPAS();
     await BPASReleasing.releasingProcess(AppNumber);
   });
-
-  //Assessment
-  //Collection
-  //Releasing
 });
