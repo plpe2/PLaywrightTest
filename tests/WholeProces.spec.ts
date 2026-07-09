@@ -13,6 +13,7 @@ import { Assessment } from "../pages/BPAS/Assessment/Assessment.page";
 import { traceApplication } from "../pages/WebPortal/api/getOwnerName.api";
 import { Collection } from "../pages/BPAS/Collection/Collection.page";
 import { Releasing } from "../pages/BPAS/Releasing/Releasing,pages";
+import { BpProcess } from "../pages/PTRAX/BpProcess.pages";
 
 test("Receiving to Releasing", async ({ browser, request }) => {
   // global value for Application Number
@@ -201,4 +202,11 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     await BPASReleasing.loginBPAS();
     await BPASReleasing.releasingProcess(AppNumber);
   });
+});
+
+test("Releasing Permit", async ({ page }) => {
+  const releasing = new RefactoredReceiving(page, true);
+
+  await releasing.loginAcc("releasingdbo");
+  await releasing.ReleasingPermit("DEM2606-00002");
 });
