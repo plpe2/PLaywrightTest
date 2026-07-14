@@ -70,15 +70,22 @@ test("BpApplication", async ({ page }) => {
   await BpApp.submitApp();
 });
 
-// test("Occupancy Application", async ({ page }) => {
-//   // Initialization of class for calling functions
-//   var loginApp = new loginOnlineApplication(page);
-//   var OccApp = new occupancyApp({ page, OccAppNo: "PAUL" });
+test("Occupancy Application", async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
 
-//   // function Calling Procees of Occupancy Permit Application
-//   await OccApp.gotoApp();
-//   await loginApp.loginAccount("0000002", "perano");
-//   await loginApp.otpCode();
-//   await OccApp.gotoOccupancy();
-//   await OccApp.fillOccupancyApp();
-// });
+  // Initialization of class for calling functions
+  var loginApp = new loginOnlineApplication(page);
+  var OccApp = new occupancyApp({ page, OccAppNo: "SHARPER" });
+
+  // function Calling Procees of Occupancy Permit Application
+  await OccApp.gotoApp();
+  await loginApp.loginAccount("0000046", "SHARPER");
+  await loginApp.otpCode();
+  await OccApp.gotoOccupancy();
+  await OccApp.fillOccupancyApp();
+  // await OccApp.ProfessionalInfoEncoding();
+  // await OccApp.DocumentSubmission();
+  await page.getByRole("link", { name: "Next" }).click();
+  await page.getByRole("link", { name: "Next" }).click();
+  await OccApp.submitApp();
+});
