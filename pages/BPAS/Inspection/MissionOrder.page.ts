@@ -23,6 +23,13 @@ export class MissionOrder extends BPASHelper {
   async GenerateMissionOrder(AppNo: string) {
     await this.page.goto(this.urlLink + "Inspection/Inspection");
 
+    const fString = AppNo.split("-")[0].split("");
+    const AppType = fString.splice(0, 3).join("");
+
+    if (AppType == "OCC") {
+      await this.page.getByText("Occupancy Inspection").click();
+    }
+
     await await this.page
       .getByRole("searchbox", { name: "Search:" })
       .fill(AppNo);

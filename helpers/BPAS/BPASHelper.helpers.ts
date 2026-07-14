@@ -12,7 +12,7 @@ export class BPASHelper {
 
   constructor(page: Page) {
     this.page = page;
-    this.testEnvironment = false;
+    this.testEnvironment = true;
     this.bpasURL = this.testEnvironment
       ? (process.env.TEST_BPAS as string)
       : (process.env.LIVE_BPAS as string);

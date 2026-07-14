@@ -211,30 +211,48 @@ test("NBP Receiving to Releasing", async ({ browser, request }) => {
 });
 
 test("Occupancy Receiving to Releasing", async ({ browser }) => {
-  const AppNumber = "OCC2607-00004";
+  const AppNumber = "OCC2607-00005";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
 
-  await test.step("PTRAX Receiving", async () => {
+  // await test.step("PTRAX Receiving", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, true);
+
+  //   // Inspection
+  //   await PTRAXProcess.loginAcc("receiving");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[3]);
+
+  //   await page.close();
+  // });
+
+  // await test.step("Inspection Receiving", async () => {
+  //   const RecevingContext = await browser.newContext();
+  //   const page = await RecevingContext.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, true);
+
+  //   await PTRAXProcess.loginAcc("siteinspector");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+
+  //   await page.close();
+  // });
+
+  await test.step("BPAS Inspection", async () => {
     const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+    var InspectionMO = new MissionOrder({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+    var FindingsTab = new Findings({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
 
-    // Inspection
-    await PTRAXProcess.loginAcc("receiving");
-    await PTRAXProcess.ReceiveApp(AppNumber);
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[3]);
-
-    await page.close();
-  });
-
-  await test.step("Inspection Receiving", async () => {
-    const RecevingContext = await browser.newContext();
-    const page = await RecevingContext.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
-
-    await PTRAXProcess.loginAcc("siteinspector");
-    await PTRAXProcess.ReceiveApp(AppNumber);
+    await InspectionMO.loginBPAS();
+    // await InspectionMO.GenerateMissionOrder(AppNumber);
+    await FindingsTab.EncodeRemarks(AppNumber);
 
     await page.close();
   });
