@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import test, { Locator, Page } from "@playwright/test";
 
 export class ProcessHandler {
   readonly page: Page;
@@ -26,11 +26,21 @@ export class ProcessHandler {
     11: "Step 11 : RELEASING AND ISSUANCE OF BUILDING PERMIT",
   };
 
-  private readonly baseUrl =
-    "http://192.168.20.71:1023/Account/DtraxLogin.aspx";
+  private readonly testEnvironment: boolean;
+  private readonly baseUrl: string;
 
-  constructor(page: Page) {
+  constructor({
+    page,
+    testEnvironment,
+  }: {
+    page: Page;
+    testEnvironment: boolean;
+  }) {
     this.page = page;
+    this.testEnvironment = testEnvironment;
+    this.baseUrl = testEnvironment
+      ? (process.env.TEST_PTRAX as string)
+      : (process.env.LIVE_PTRAX as string);
 
     this.username = page.locator("#ContentPlaceHolder1_ctlLogin1_txtUser");
     this.password = page.locator("#ContentPlaceHolder1_ctlLogin1_txtPass");
@@ -39,7 +49,7 @@ export class ProcessHandler {
     );
 
     this.receiveBtn = page.locator("#MainContent_btnDocMgr_batchAcceptance");
-    this.proceedBtn = page.locator("//*[@id='MainContent_btnDocMgr_AcceptOk']");
+    this.proceedBtn = page.locator("#MainContent_btnDocMgr_AcceptOk");
     this.jumpSelection = page.locator(
       "//*[@id='MainContent_ctlDocMgr_OperatorsAdvice1_ddl_JumpTo_Steps']",
     );

@@ -37,6 +37,5 @@ export class Findings extends BPASHelper {
       .selectOption("Building Inspection");
     await this.page.locator("#txtOtherFindings").fill("NYS");
     await this.page.getByRole("button", { name: "Save", exact: true }).click();
-    await this.page.waitForTimeout(5000);
   }
 }

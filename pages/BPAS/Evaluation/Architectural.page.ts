@@ -30,6 +30,7 @@ export class Architectural extends BPASHelper {
     // await this.LandV();
     // await this.LandG();
     // await this.SwMP();
+    await this.page.locator("#btnSaveBldgEval").click();
   }
 
   // sub-functions for each evaluation criterias
