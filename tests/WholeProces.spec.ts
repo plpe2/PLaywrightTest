@@ -15,10 +15,10 @@ import { Collection } from "../pages/BPAS/Collection/Collection.page";
 import { Releasing } from "../pages/BPAS/Releasing/Releasing,pages";
 import { BpProcess } from "../pages/PTRAX/BpProcess.pages";
 
-test("Receiving to Releasing", async ({ browser, request }) => {
+test("NBP Receiving to Releasing", async ({ browser, request }) => {
   // global value for Application Number
-  const AppNumber = "NBP2607-00022";
-  const isTestEnvironment: boolean = true;
+  const AppNumber = "NBP2607-00014";
+  const isTestEnvironment: boolean = false;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
 
@@ -38,7 +38,7 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     // Inspection
     await PTRAXProcess.loginAcc("receiving");
     await PTRAXProcess.ReceiveApp(AppNumber);
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[3]);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.NBPjumpSteps[3]);
 
     await page.close();
   });
@@ -76,7 +76,7 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     await PTRAXProcess.loginAcc("siteverification");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[4]);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.NBPjumpSteps[4]);
     await page.close();
   });
 
@@ -112,7 +112,7 @@ test("Receiving to Releasing", async ({ browser, request }) => {
 
     // Evaluator Account
     await PTRAXProcess.loginAcc("evaluator");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.jumpSteps[8]);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.NBPjumpSteps[8]);
     await page.close();
   });
 
@@ -143,7 +143,10 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
 
     await refactorePTRAX.loginAcc("billingdbo");
-    await refactorePTRAX.JumpApp(AppNumber, await refactorePTRAX.jumpSteps[9]);
+    await refactorePTRAX.JumpApp(
+      AppNumber,
+      await refactorePTRAX.NBPjumpSteps[9],
+    );
 
     await page.close();
   });
@@ -178,7 +181,10 @@ test("Receiving to Releasing", async ({ browser, request }) => {
     const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
 
     await refactorePTRAX.loginAcc("treasury");
-    await refactorePTRAX.JumpApp(AppNumber, await refactorePTRAX.jumpSteps[11]);
+    await refactorePTRAX.JumpApp(
+      AppNumber,
+      await refactorePTRAX.NBPjumpSteps[11],
+    );
 
     await page.close();
   });
@@ -201,6 +207,36 @@ test("Receiving to Releasing", async ({ browser, request }) => {
 
     await BPASReleasing.loginBPAS();
     await BPASReleasing.releasingProcess(AppNumber);
+  });
+});
+
+test("Occupancy Receiving to Releasing", async ({ browser }) => {
+  const AppNumber = "OCC2607-00004";
+  const isTestEnvironment: boolean = true;
+  const context = await browser.newContext();
+  test.setTimeout(10 * 60 * 1000);
+
+  await test.step("PTRAX Receiving", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, true);
+
+    // Inspection
+    await PTRAXProcess.loginAcc("receiving");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[3]);
+
+    await page.close();
+  });
+
+  await test.step("Inspection Receiving", async () => {
+    const RecevingContext = await browser.newContext();
+    const page = await RecevingContext.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, true);
+
+    await PTRAXProcess.loginAcc("siteinspector");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+
+    await page.close();
   });
 });
 

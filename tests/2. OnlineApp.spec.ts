@@ -45,7 +45,7 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "JADAMS",
+      BldgName: "CSTEPHENS",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -75,17 +75,15 @@ test("Occupancy Application", async ({ page }) => {
 
   // Initialization of class for calling functions
   var loginApp = new loginOnlineApplication(page);
-  var OccApp = new occupancyApp({ page, OccAppNo: "SHARPER" });
+  var OccApp = new occupancyApp({ page, OccAppNo: "JADAMS" });
 
   // function Calling Procees of Occupancy Permit Application
   await OccApp.gotoApp();
-  await loginApp.loginAccount("0000046", "SHARPER");
+  await loginApp.loginAccount("0000035", "JADAMS");
   await loginApp.otpCode();
   await OccApp.gotoOccupancy();
   await OccApp.fillOccupancyApp();
-  // await OccApp.ProfessionalInfoEncoding();
-  // await OccApp.DocumentSubmission();
-  await page.getByRole("link", { name: "Next" }).click();
-  await page.getByRole("link", { name: "Next" }).click();
+  await OccApp.ProfessionalInfoEncoding();
+  await OccApp.DocumentSubmission();
   await OccApp.submitApp();
 });
