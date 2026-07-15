@@ -22,6 +22,13 @@ export class Findings extends BPASHelper {
 
   async EncodeRemarks(AppNo: string) {
     await this.page.goto(this.urlLink + "Inspection/Inspection");
+
+    const fString = AppNo.split("-")[0].split("");
+    const AppType = fString.splice(0, 3).join("");
+
+    if (AppType == "OCC") {
+      await this.page.getByText("Occupancy Inspection").click();
+    }
     await this.page.getByRole("link", { name: "Findings" }).click();
     await this.page
       .locator("#tblMissionOrder_filter")
