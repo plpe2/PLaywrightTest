@@ -27,6 +27,5 @@ export class Releasing extends BPASHelper {
     await this.page.getByRole("button", { name: "OK" }).click();
     await this.page.locator("#chk_all").click();
     await await this.page.getByRole("button", { name: "Save" }).click();
-    await this.page.waitForTimeout(5000);
   }
 }
