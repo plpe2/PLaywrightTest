@@ -303,14 +303,32 @@ test("Occupancy Receiving to Releasing", async ({ browser }) => {
   //   await page.close();
   // });
 
-  await test.step("Assess permit Application", async () => {
-    const AssessContext = await browser.newContext();
-    const page = await AssessContext.newPage();
+  // await test.step("Assess permit Application", async () => {
+  //   const AssessContext = await browser.newContext();
+  //   const page = await AssessContext.newPage();
 
-    var AssessModule = new Assessment(page, isTestEnvironment);
+  //   var AssessModule = new Assessment(page, isTestEnvironment);
 
-    await AssessModule.loginBPAS();
-    await AssessModule.AssessApp(AppNumber);
+  //   await AssessModule.loginBPAS();
+  //   await AssessModule.AssessApp(AppNumber);
+  //   await page.close();
+  // });
+
+  await test.step("PTRAX Billing jump", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("billingdbo");
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[8]);
+    await page.close();
+  });
+
+  await test.step("PTRAX Billing Receiving ", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("treasury");
+    await PTRAXProcess.ReceiveApp(AppNumber);
     await page.close();
   });
 });
