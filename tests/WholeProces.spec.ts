@@ -212,7 +212,7 @@ test("NBP Receiving to Releasing", async ({ browser, request }) => {
 });
 
 test("Occupancy Receiving to Releasing", async ({ browser }) => {
-  const AppNumber = "OCC2607-00003";
+  const AppNumber = "OCC2607-00004";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -276,13 +276,31 @@ test("Occupancy Receiving to Releasing", async ({ browser }) => {
   //   await page.close();
   // });
 
-  await test.step("Occupancy permit Evaluation", async () => {
-    const EvalContext = await browser.newContext();
-    const page = await EvalContext.newPage();
-    const OccPage = new Occupancy({ page: page, testEnvironment: true });
+  // await test.step("Occupancy permit Evaluation", async () => {
+  //   const EvalContext = await browser.newContext();
+  //   const page = await EvalContext.newPage();
+  //   const OccPage = new Occupancy({ page: page, testEnvironment: true });
 
-    await OccPage.loginBPAS();
-    await OccPage.OccEvaluation(AppNumber);
+  //   await OccPage.loginBPAS();
+  //   await OccPage.OccEvaluation(AppNumber);
+  // });
+
+  await test.step("PTRAX Billing jump", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("dboadmin");
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[7]);
+    await page.close();
+  });
+
+  await test.step("PTRAX Billing Receiving ", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("billingdbo");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await page.close();
   });
 });
 
