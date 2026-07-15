@@ -345,29 +345,38 @@ test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
   //   await page.close();
   // });
 
-  await test.step("Collection jump into Releasing", async () => {
-    const CollectionContext = await browser.newContext();
-    const page = await CollectionContext.newPage();
-    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("Collection jump into Releasing", async () => {
+  //   const CollectionContext = await browser.newContext();
+  //   const page = await CollectionContext.newPage();
+  //   const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
 
-    await refactorePTRAX.loginAcc("treasury");
-    await refactorePTRAX.JumpApp(
-      AppNumber,
-      await refactorePTRAX.OccjumpSteps[10],
-    );
+  //   await refactorePTRAX.loginAcc("treasury");
+  //   await refactorePTRAX.JumpApp(
+  //     AppNumber,
+  //     await refactorePTRAX.OccjumpSteps[10],
+  //   );
 
-    await page.close();
-  });
+  //   await page.close();
+  // });
 
-  await test.step("Receiving into Releasing", async () => {
+  // await test.step("Receiving into Releasing", async () => {
+  //   const ReleasingContext = await browser.newContext();
+  //   const page = await ReleasingContext.newPage();
+  //   const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
+
+  //   await refactorePTRAX.loginAcc("releasingdbo");
+  //   await refactorePTRAX.ReceiveApp(AppNumber);
+
+  //   await page.close();
+  // });
+
+  await test.step("Releasing process", async () => {
     const ReleasingContext = await browser.newContext();
     const page = await ReleasingContext.newPage();
-    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
+    var BPASReleasing = new Releasing(page);
 
-    await refactorePTRAX.loginAcc("releasingdbo");
-    await refactorePTRAX.ReceiveApp(AppNumber);
-
-    await page.close();
+    await BPASReleasing.loginBPAS();
+    await BPASReleasing.releasingProcess(AppNumber);
   });
 });
 
