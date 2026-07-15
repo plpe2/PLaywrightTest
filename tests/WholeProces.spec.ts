@@ -211,7 +211,7 @@ test("NBP Receiving to Releasing", async ({ browser, request }) => {
   });
 });
 
-test("Occupancy Receiving to Releasing", async ({ browser }) => {
+test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
   const AppNumber = "OCC2607-00004";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
@@ -314,21 +314,34 @@ test("Occupancy Receiving to Releasing", async ({ browser }) => {
   //   await page.close();
   // });
 
-  await test.step("PTRAX Billing jump", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Billing jump", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("billingdbo");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[8]);
-    await page.close();
-  });
+  //   await PTRAXProcess.loginAcc("billingdbo");
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.OccjumpSteps[8]);
+  //   await page.close();
+  // });
 
-  await test.step("PTRAX Billing Receiving ", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Billing Receiving ", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("treasury");
-    await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await PTRAXProcess.loginAcc("treasury");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
+
+  await test.step("Collection process", async () => {
+    const BuildingName = await traceApplication(request, AppNumber);
+    const CollectionContext = await browser.newContext();
+    const page = await CollectionContext.newPage();
+
+    var BPASCollection = new Collection(page);
+
+    await BPASCollection.loginBPAS();
+    await BPASCollection.collectionProcess(BuildingName);
+
     await page.close();
   });
 });
