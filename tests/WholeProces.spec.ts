@@ -382,16 +382,32 @@ test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
 });
 
 test("CFEI Receiving to Releasing", async ({ browser, request }) => {
-  const AppNumber = "NBP2607-00034";
+  const AppNumber = "CFE2607-00007";
   const isTestEnvironment: boolean = true;
   test.setTimeout(10 * 60 * 1000);
 
-  await test.step("CFEI Receiving", async () => {
-    const CFEIContext = await browser.newContext();
-    const page = await CFEIContext.newPage();
-    const CFEIReceiving = new CFEIApp(page, "CFE2607-00005");
+  await test.step("PTRAX Receiving", async () => {
+    const RecevingContext = await browser.newContext();
+    const page = await RecevingContext.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, true);
 
-    await CFEIReceiving.CFEIApplication();
+    // Inspection
+    await PTRAXProcess.loginAcc("receiving");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[3]);
+
+    await page.close();
+  });
+
+  await test.step("Inspection Receiving", async () => {
+    const RecevingContext = await browser.newContext();
+    const page = await RecevingContext.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, true);
+
+    await PTRAXProcess.loginAcc("siteverification");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+
+    await page.close();
   });
 });
 
