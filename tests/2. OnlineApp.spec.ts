@@ -93,11 +93,11 @@ test("Occupancy Application", async ({ page }) => {
 
 test("CFEI Application", async ({ page }) => {
   test.setTimeout(10 * 60 * 1000);
-  const CFEIPermit = new CFEIApp(page, "CWELLS");
+  const CFEIPermit = new CFEIApp(page, "BMURRAY");
   var loginApp = new loginOnlineApplication(page);
 
   await CFEIPermit.gotoApp();
-  await loginApp.loginAccount("0000048", "CWELLS");
+  await loginApp.loginAccount("0000045", "BMURRAY");
   await loginApp.otpCode();
   await CFEIPermit.CFEIApplication();
   await CFEIPermit.ProfessionalInfoEncoding();
