@@ -2,6 +2,7 @@ import { test } from "@playwright/test";
 import { occupancyApp } from "../pages/Online Application/Occupancy/occupancyApp.page";
 import { loginOnlineApplication } from "../pages/Online Application/Login/loginOnlineApp.page";
 import { BpApplication } from "../pages/Online Application/BP Application/BpApplication.page";
+import { CFEIApp } from "../pages/Online Application/CFEI/CFEIApp.pages";
 
 // test("Copy AppNo", async ({ page }) => {
 //   var loginApp = new loginOnlineApplication(page);
@@ -36,6 +37,8 @@ import { BpApplication } from "../pages/Online Application/BP Application/BpAppl
 
 test("BpApplication", async ({ page }) => {
   // Initialization of class for calling functions
+  test.setTimeout(60000);
+
   var loginApp = new loginOnlineApplication(page);
   var BpApp = new BpApplication({
     page,
@@ -45,7 +48,7 @@ test("BpApplication", async ({ page }) => {
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "TSIMMONS",
+      BldgName: "CWELLS",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -62,7 +65,7 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000047", "TSIMMONS");
+  await loginApp.loginAccount("0000048", "CWELLS");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
   await BpApp.ProfessionalInfoEncoding();
@@ -75,15 +78,29 @@ test("Occupancy Application", async ({ page }) => {
 
   // Initialization of class for calling functions
   var loginApp = new loginOnlineApplication(page);
-  var OccApp = new occupancyApp({ page, OccAppNo: "TSIMMONS" });
+  var OccApp = new occupancyApp({ page, OccAppNo: "CWELLS" });
 
   // function Calling Procees of Occupancy Permit Application
   await OccApp.gotoApp();
-  await loginApp.loginAccount("0000047", "TSIMMONS");
+  await loginApp.loginAccount("0000048", "CWELLS");
   await loginApp.otpCode();
   await OccApp.gotoOccupancy();
   await OccApp.fillOccupancyApp();
   await OccApp.ProfessionalInfoEncoding();
   await OccApp.DocumentSubmission();
   await OccApp.submitApp();
+});
+
+test("CFEI Application", async ({ page }) => {
+  test.setTimeout(10 * 60 * 1000);
+  const CFEIPermit = new CFEIApp(page, "CWELLS");
+  var loginApp = new loginOnlineApplication(page);
+
+  await CFEIPermit.gotoApp();
+  await loginApp.loginAccount("0000048", "CWELLS");
+  await loginApp.otpCode();
+  await CFEIPermit.CFEIApplication();
+  await CFEIPermit.ProfessionalInfoEncoding();
+  await CFEIPermit.DocumentSubmission();
+  await CFEIPermit.submitApp();
 });

@@ -15,10 +15,11 @@ import { Collection } from "../pages/BPAS/Collection/Collection.page";
 import { Releasing } from "../pages/BPAS/Releasing/Releasing,pages";
 import { BpProcess } from "../pages/PTRAX/BpProcess.pages";
 import { Occupancy } from "../pages/BPAS/Evaluation/Occupancy.pages";
+import { CFEIApp } from "../pages/Online Application/CFEI/CFEIApp.pages";
 
 test("NBP Receiving to Releasing", async ({ browser, request }) => {
   // global value for Application Number
-  const AppNumber = "NBP2607-00033";
+  const AppNumber = "NBP2607-00034";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -212,7 +213,7 @@ test("NBP Receiving to Releasing", async ({ browser, request }) => {
 });
 
 test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
-  const AppNumber = "OCC2607-00007";
+  const AppNumber = "OCC2607-00008";
   const isTestEnvironment: boolean = true;
   const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
@@ -380,9 +381,23 @@ test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
   });
 });
 
-test("Releasing Permit", async ({ page }) => {
-  const releasing = new RefactoredReceiving(page, true);
+test("CFEI Receiving to Releasing", async ({ browser, request }) => {
+  const AppNumber = "NBP2607-00034";
+  const isTestEnvironment: boolean = true;
+  test.setTimeout(10 * 60 * 1000);
 
-  await releasing.loginAcc("releasingdbo");
-  await releasing.ReleasingPermit("DEM2606-00002");
+  await test.step("CFEI Receiving", async () => {
+    const CFEIContext = await browser.newContext();
+    const page = await CFEIContext.newPage();
+    const CFEIReceiving = new CFEIApp(page, "CFE2607-00005");
+
+    await CFEIReceiving.CFEIApplication();
+  });
 });
+
+// test("Releasing Permit", async ({ page }) => {
+//   const releasing = new RefactoredReceiving(page, true);
+
+//   await releasing.loginAcc("releasingdbo");
+//   await releasing.ReleasingPermit("DEM2606-00002");
+// });
