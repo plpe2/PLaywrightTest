@@ -449,12 +449,30 @@ test("CFEI Receiving to Releasing", async ({ browser, request }) => {
   //   await page.close();
   // });
 
-  await test.step("CFEI permit Evaluation", async () => {
-    const page = await context.newPage();
-    const CFEIEval = new CFEI({ page: page, testEnvironment: true });
+  // await test.step("CFEI permit Evaluation", async () => {
+  //   const page = await context.newPage();
+  //   const CFEIEval = new CFEI({ page: page, testEnvironment: true });
 
-    await CFEIEval.loginBPAS();
-    await CFEIEval.CFEIEvaluation(AppNumber);
+  //   await CFEIEval.loginBPAS();
+  //   await CFEIEval.CFEIEvaluation(AppNumber);
+  // });
+
+  await test.step("PTRAX Billing jump", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("evaluator");
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[8]);
+    await page.close();
+  });
+
+  await test.step("PTRAX Billing Receiving ", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("billingdbo");
+    await PTRAXProcess.ReceiveApp(AppNumber);
+    await page.close();
   });
 });
 
