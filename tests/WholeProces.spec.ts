@@ -457,21 +457,89 @@ test("CFEI Receiving to Releasing", async ({ browser, request }) => {
   //   await CFEIEval.CFEIEvaluation(AppNumber);
   // });
 
-  await test.step("PTRAX Billing jump", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  // await test.step("PTRAX Billing jump", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("evaluator");
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[8]);
+  //   await PTRAXProcess.loginAcc("evaluator");
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[8]);
+  //   await page.close();
+  // });
+
+  // await test.step("PTRAX Billing Receiving ", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+  //   await PTRAXProcess.loginAcc("billingdbo");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
+
+  // await test.step("Assess permit Application", async () => {
+  //   const AssessContext = await browser.newContext();
+  //   const page = await AssessContext.newPage();
+
+  //   var AssessModule = new Assessment(page, isTestEnvironment);
+
+  //   await AssessModule.loginBPAS();
+  //   await AssessModule.AssessApp(AppNumber);
+  //   await page.close();
+  // });
+
+  // await test.step("PTRAX Collection jump", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+  //   await PTRAXProcess.loginAcc("billingdbo");
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[9]);
+  //   await page.close();
+  // });
+
+  // await test.step("PTRAX Collection Receiving ", async () => {
+  //   const page = await context.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+  //   await PTRAXProcess.loginAcc("treasury");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await page.close();
+  // });
+
+  // Need validating Testing to ensure functionality
+  await test.step("Collection process", async () => {
+    const BuildingName = await traceApplication(request, AppNumber);
+    const CollectionContext = await browser.newContext();
+    const page = await CollectionContext.newPage();
+
+    var BPASCollection = new Collection(page);
+
+    await BPASCollection.loginBPAS();
+    await BPASCollection.collectionProcess(BuildingName);
+
     await page.close();
   });
 
-  await test.step("PTRAX Billing Receiving ", async () => {
-    const page = await context.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+  await test.step("Collection jump into Releasing", async () => {
+    const CollectionContext = await browser.newContext();
+    const page = await CollectionContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
 
-    await PTRAXProcess.loginAcc("billingdbo");
-    await PTRAXProcess.ReceiveApp(AppNumber);
+    await refactorePTRAX.loginAcc("treasury");
+    await refactorePTRAX.JumpApp(
+      AppNumber,
+      await refactorePTRAX.CFEIjumpSteps[11],
+    );
+
+    await page.close();
+  });
+
+  await test.step("Receiving into Releasing", async () => {
+    const ReleasingContext = await browser.newContext();
+    const page = await ReleasingContext.newPage();
+    const refactorePTRAX = new RefactoredReceiving(page, isTestEnvironment);
+
+    await refactorePTRAX.loginAcc("releasingdbo");
+    await refactorePTRAX.ReceiveApp(AppNumber);
+
     await page.close();
   });
 });
