@@ -384,29 +384,67 @@ test("Occupancy Receiving to Releasing", async ({ browser, request }) => {
 test("CFEI Receiving to Releasing", async ({ browser, request }) => {
   const AppNumber = "CFE2607-00007";
   const isTestEnvironment: boolean = true;
+  const context = await browser.newContext();
   test.setTimeout(10 * 60 * 1000);
 
-  await test.step("PTRAX Receiving", async () => {
-    const RecevingContext = await browser.newContext();
-    const page = await RecevingContext.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+  // await test.step("PTRAX Receiving", async () => {
+  //   const RecevingContext = await browser.newContext();
+  //   const page = await RecevingContext.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, true);
 
-    // Inspection
-    await PTRAXProcess.loginAcc("receiving");
-    await PTRAXProcess.ReceiveApp(AppNumber);
-    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[3]);
+  //   // Inspection
+  //   await PTRAXProcess.loginAcc("receiving");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+  //   await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[3]);
+
+  //   await page.close();
+  // });
+
+  // await test.step("Inspection Receiving", async () => {
+  //   const RecevingContext = await browser.newContext();
+  //   const page = await RecevingContext.newPage();
+  //   var PTRAXProcess = new RefactoredReceiving(page, true);
+
+  //   await PTRAXProcess.loginAcc("siteverification");
+  //   await PTRAXProcess.ReceiveApp(AppNumber);
+
+  //   await page.close();
+  // });
+
+  await test.step("BPAS Inspection", async () => {
+    const InspectionContext = await browser.newContext();
+    const page = await InspectionContext.newPage();
+    var InspectionMO = new MissionOrder({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+    var FindingsTab = new Findings({
+      page: page,
+      testEnvironment: isTestEnvironment,
+    });
+
+    await InspectionMO.loginBPAS();
+    await InspectionMO.GenerateMissionOrder(AppNumber);
+    await FindingsTab.EncodeRemarks(AppNumber);
 
     await page.close();
   });
 
-  await test.step("Inspection Receiving", async () => {
-    const RecevingContext = await browser.newContext();
-    const page = await RecevingContext.newPage();
-    var PTRAXProcess = new RefactoredReceiving(page, true);
+  await test.step("PTRAX Evaluation jump", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
 
     await PTRAXProcess.loginAcc("siteverification");
-    await PTRAXProcess.ReceiveApp(AppNumber);
+    await PTRAXProcess.JumpApp(AppNumber, await PTRAXProcess.CFEIjumpSteps[4]);
+    await page.close();
+  });
 
+  await test.step("PTRAX Evaluation Receiving ", async () => {
+    const page = await context.newPage();
+    var PTRAXProcess = new RefactoredReceiving(page, isTestEnvironment);
+
+    await PTRAXProcess.loginAcc("evaluator");
+    await PTRAXProcess.ReceiveApp(AppNumber);
     await page.close();
   });
 });
