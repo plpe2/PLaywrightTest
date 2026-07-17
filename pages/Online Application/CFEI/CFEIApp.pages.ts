@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { WaitUI } from "../../../helpers/WaitUI.helper";
 
 export class CFEIApp {
@@ -25,7 +25,27 @@ export class CFEIApp {
     await this.Helper.waitSpinner();
     await this.page.getByRole("link", { name: "Next" }).click();
     await this.Helper.waitSpinner();
-    // await this.page.getByRole("link", { name: "Save" }).click();
+    await this.page.locator("#NoFloors").fill("1");
+    await this.page
+      .locator('input[name="BPASCFEIEvalAssess.TotalConnectedLoad"]')
+      .fill("15");
+    await this.page
+      .locator('input[name="BPASCFEIEvalAssess.TotalTransformerCapacity"]')
+      .fill("200");
+    await this.page
+      .locator('input[name="BPASCFEIEvalAssess.TotalGeneratorCapacity"]')
+      .fill("200");
+    await this.page
+      .locator('input[name="BPASCFEIEvalAssess.TotalUpsCapacity"]')
+      .fill("200");
+    const date = this.page.locator("#txtOpenSpace");
+
+    await expect(date).toBeVisible();
+    await expect(date).toBeEditable();
+
+    await date.fill("2026-08-12");
+    await this.page.getByRole("link", { name: "Save" }).click();
+    await this.page.getByRole("button", { name: "OK" }).click();
     await this.page.getByRole("link", { name: "Next" }).click();
   }
 
