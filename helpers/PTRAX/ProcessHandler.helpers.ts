@@ -38,6 +38,19 @@ export class ProcessHandler {
     10: "Step 10 : ISSUANCE AND RELEASE OF CERTIFICATE",
   };
 
+  readonly CFEIjumpSteps = {
+    2: "Step 2 : REVIEW SUBMITTED DOCUMENTS",
+    3: "Step 3 : SITE VERIFICATION",
+    4: "Step 4 : EVALUATION AND ASSESSMENT",
+    5: "Step 5 : FOR COMPLIANCE",
+    6: "Step 6 : REVIEW CORRECTED PLANS/DOCUMENTS",
+    7: "Step 7 : PROCESSING OF PERMITS",
+    8: "Step 8 : BILLING (ISSUANCE OF ORDER OF PAYMENT)",
+    9: "Step 9 : CASHIER(FOR PAYMENT POSTING)",
+    10: "Step 10 : APPROVAL OF PERMIT",
+    11: "Step 11 : RELEASING AND ISSUANCE OF BUILDING PERMIT",
+  };
+
   private readonly testEnvironment: boolean;
   private readonly baseUrl: string;
 
