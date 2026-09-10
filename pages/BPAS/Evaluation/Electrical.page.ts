@@ -22,6 +22,28 @@ export class Electrical extends BPASHelper {
     await expect(this.page.locator("#modalbtnSaveB")).toBeVisible();
     await this.page.getByRole("button", { name: "Close" }).click();
     await this.page
+      .locator("#InstallationID")
+      .selectOption("Total Connected Load");
+    await this.page.locator('input[name="Capacity"]').fill("15");
+    await this.page.getByRole("button", { name: "Add" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
+    await this.page
+      .locator("#InstallationID")
+      .selectOption("Generator Capacity");
+    await this.page.locator('input[name="Capacity"]').fill("200");
+    await this.page.getByRole("button", { name: "Add" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
+    await this.page
+      .locator("#InstallationID")
+      .selectOption("Transformer Capacity");
+    await this.page.locator('input[name="Capacity"]').fill("200");
+    await this.page.getByRole("button", { name: "Add" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
+    await this.page.locator("#InstallationID").selectOption("UPS Capacity");
+    await this.page.locator('input[name="Capacity"]').fill("200");
+    await this.page.getByRole("button", { name: "Add" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
+    await this.page
       .locator("a")
       .filter({ hasText: "Complied" })
       .first()

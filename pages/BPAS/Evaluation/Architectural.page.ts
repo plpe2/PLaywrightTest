@@ -28,8 +28,9 @@ export class Architectural extends BPASHelper {
     // await this.GandO();
     // await this.AA();
     // await this.LandV();
-    // await this.LandG();
+    await this.LandG();
     // await this.SwMP();
+    await this.InstallationRecords();
     await this.page.locator("#btnSaveBldgEval").click();
   }
 
@@ -178,7 +179,11 @@ export class Architectural extends BPASHelper {
         "#dvFireCounter10 > #card_one > .card-header > .row > .card-title > .float-right.ml-2",
       )
       .click();
-    await this.page.locator("#txtFrontage").fill("1");
+    await this.page.locator("#txtFrontage").fill("12");
+    await this.page.locator("#txtLeft").fill("12");
+    await this.page.locator("#txtRight").fill("12");
+    await this.page.locator("#txtBack").fill("12");
+    await this.page.getByRole("button", { name: "Compute" }).click();
     await this.page.locator("#btnSaveBldgEvalLG").click();
     await this.closeSaveEval();
     await this.page
@@ -204,5 +209,11 @@ export class Architectural extends BPASHelper {
       )
       .first()
       .click();
+  }
+
+  async InstallationRecords() {
+    await this.page.locator('input[name="Capacity"]').fill("16");
+    await this.page.getByRole("button", { name: "Add" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
   }
 }

@@ -173,6 +173,11 @@ export class BpApplication {
       await this.page.getByRole("link", { name: "Next >" }).click();
     }
 
+    await this.page
+      .locator("#navPermits")
+      .getByText("Mechanical", { exact: true })
+      .click();
+
     await this.Pin.fill(this.BldgAppInfo.Pin);
     await this.BldgName.fill(this.BldgAppInfo.BldgName);
     await this.TDN.fill(this.BldgAppInfo.TDN);
