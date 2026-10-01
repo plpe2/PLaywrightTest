@@ -65,6 +65,7 @@ export class Mechanical extends BPASHelper {
     await this.page.getByRole("button", { name: "Add" }).click();
     await this.page.getByRole("button", { name: "Close" }).click();
 
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSave").click();
   }
 }

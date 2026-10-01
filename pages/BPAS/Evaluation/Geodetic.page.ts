@@ -26,6 +26,7 @@ export class Geodetic extends BPASHelper {
     await expect(this.page.locator("#modalbtnSaveB")).toBeVisible();
     await this.page.getByRole("button", { name: "Close" }).click();
     await this.page.locator("a").filter({ hasText: "Complied" }).click();
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSaveGeodeticEval").click();
     // await this.page.waitForTimeout(5000);
   }
