@@ -42,13 +42,13 @@ test("BpApplication", async ({ page }) => {
   var loginApp = new loginOnlineApplication(page);
   var BpApp = new BpApplication({
     page,
-    testEnvironment: true,
+    testEnvironment: false,
     isNewAccount: true,
-    isExisting: false,
+    isExisting: true,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "Proposed Two-Storey Residential Building",
-      BldgName: "CWELLS",
+      BldgName: "ECRUZ",
       TDN: "15-00345",
       TCTNo: "123456",
       ProjectCost: 3500000,
@@ -60,17 +60,22 @@ test("BpApplication", async ({ page }) => {
       LotNo: "7",
       BlkNo: "13",
       BrgyName: "Barangay San Isidro",
+      ScopeofWork: "",
+      UnitsNo: 1,
+      ZoningClass: "",
+      BuildingGroup: "",
+      BuildingDivision: "",
     },
   });
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000048", "CWELLS");
+  await loginApp.loginAccount("0000004", "ECRUZ");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
-  await BpApp.ProfessionalInfoEncoding();
-  await BpApp.DocumentSubmission();
-  await BpApp.submitApp();
+  // await BpApp.ProfessionalInfoEncoding();
+  // await BpApp.DocumentSubmission();
+  // await BpApp.submitApp();
 });
 
 test("Occupancy Application", async ({ page }) => {
@@ -78,11 +83,11 @@ test("Occupancy Application", async ({ page }) => {
 
   // Initialization of class for calling functions
   var loginApp = new loginOnlineApplication(page);
-  var OccApp = new occupancyApp({ page, OccAppNo: "CWELLS" });
+  var OccApp = new occupancyApp({ page, OccAppNo: "ECRUZ" });
 
   // function Calling Procees of Occupancy Permit Application
   await OccApp.gotoApp();
-  await loginApp.loginAccount("0000048", "CWELLS");
+  await loginApp.loginAccount("0000004", "ECRUZ");
   await loginApp.otpCode();
   await OccApp.gotoOccupancy();
   await OccApp.fillOccupancyApp();

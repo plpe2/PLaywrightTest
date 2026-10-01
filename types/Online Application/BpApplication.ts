@@ -23,4 +23,9 @@ export type BldgAppInfo = {
   LotNo: string;
   BlkNo: string;
   BrgyName?: string;
+  ScopeofWork: string;
+  UnitsNo: number;
+  ZoningClass: string;
+  BuildingGroup: string;
+  BuildingDivision: string;
 };
