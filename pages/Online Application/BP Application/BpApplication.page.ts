@@ -23,6 +23,12 @@ export class BpApplication {
   readonly LotNo: Locator;
   readonly BlkNo: Locator;
   readonly BrgyName: Locator;
+  //Added Locators
+  readonly ScopeofWork: Locator;
+  readonly UnitsNo: Locator;
+  readonly ZoningClass: Locator;
+  readonly BuildingGroup: Locator;
+  readonly BuildingDivision: Locator;
 
   // Parameters for data-driven function
   readonly BldgAppInfo: BldgAppInfo;
@@ -83,6 +89,15 @@ export class BpApplication {
       'input[name="Building.Project.Address.BlockNo"]',
     );
     this.BrgyName = this.page.locator("#Building_Project_Address_BarangayName");
+
+    //Added Locators
+    this.ScopeofWork = this.page.locator("#Building_Project_ScopeofWork");
+    this.UnitsNo = this.page.locator('[name="Building.Project.TotalUnits"]');
+    this.ZoningClass = this.page.locator("#Building_ZoningUse");
+    this.BuildingGroup = this.page.locator(
+      "#Building_UseorCharacterofOccupancy",
+    );
+    this.BuildingDivision = this.page.locator("#Building_Division");
 
     this.Savebtn = this.page.getByRole("link", { name: "Save" });
     this.Nextbtn = this.page.getByRole("link", { name: "Next >" });
