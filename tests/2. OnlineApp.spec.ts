@@ -60,11 +60,11 @@ test("BpApplication", async ({ page }) => {
       LotNo: "7",
       BlkNo: "13",
       BrgyName: "Barangay San Isidro",
-      ScopeofWork: "",
+      ScopeofWork: "New Construction",
       UnitsNo: 1,
-      ZoningClass: "",
-      BuildingGroup: "",
-      BuildingDivision: "",
+      ZoningClass: "RESIDENTIAL",
+      BuildingGroup: "Group A: Residential Dwellings",
+      BuildingDivision: "Division A-1",
     },
   });
 

@@ -1,6 +1,7 @@
 import { Locator, Page } from "@playwright/test";
 import { BldgAppInfo } from "../../../types/Online Application/BpApplication";
 import { WaitUI } from "../../../helpers/WaitUI.helper";
+import { parse } from "node:path";
 
 export class BpApplication {
   readonly page: Page;
@@ -206,6 +207,12 @@ export class BpApplication {
     await this.LotNo.fill(this.BldgAppInfo.LotNo);
     await this.BlkNo.fill(this.BldgAppInfo.BlkNo);
     await this.BrgyName.selectOption("ALIMA");
+
+    await this.ScopeofWork.selectOption(this.BldgAppInfo.ScopeofWork);
+    await this.UnitsNo.fill(String(this.BldgAppInfo.UnitsNo));
+    await this.ZoningClass.selectOption(this.BldgAppInfo.ZoningClass);
+    await this.BuildingGroup.selectOption(this.BldgAppInfo.BuildingGroup);
+    await this.BuildingDivision.selectOption(this.BldgAppInfo.BuildingDivision);
 
     if (!this.isExisting) {
       await this.ProjectTitle.click();
