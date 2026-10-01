@@ -31,6 +31,7 @@ export class Architectural extends BPASHelper {
     await this.LandG();
     // await this.SwMP();
     await this.InstallationRecords();
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSaveBldgEval").click();
   }
 

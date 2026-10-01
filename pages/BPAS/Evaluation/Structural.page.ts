@@ -26,6 +26,7 @@ export class Structural extends BPASHelper {
       .filter({ hasText: "Complied" })
       .first()
       .click();
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSaveBldgEvalStructural").click();
   }
 }

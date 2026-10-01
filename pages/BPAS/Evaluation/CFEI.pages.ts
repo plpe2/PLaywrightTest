@@ -33,6 +33,7 @@ export class CFEI extends BPASHelper {
     await this.page.locator("#btnSaveCFEIPlans").click();
     await this.page.getByRole("button", { name: "Close" }).click();
     await this.page.locator("a").filter({ hasText: "Complied" }).click();
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSaveCFEIEval").click();
   }
 }
