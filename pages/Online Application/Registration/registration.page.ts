@@ -4,15 +4,30 @@ import { RegistrationTypes } from "../../../types/Online Application/Registratio
 export class RegistrationPage {
   readonly page: Page;
   readonly testEnvironment: boolean;
+  readonly isOwner: boolean;
 
   // -- Constructor : Passed OwnerInfo
   readonly OwnerInfo: {
     firstName: string;
+    middleName: string;
     lastName: string;
   };
 
   // -- Constructor : Passed ContactInfo
   readonly ContactInfo: {
+    mobileNumber: string;
+    address: string;
+    zipCode: string;
+  };
+
+  RepresentativeInfo: {
+    firstName: string;
+    middleName: string;
+    lastName: string;
+  };
+
+  // -- Constructor : Passed ContactInfo
+  RepresentativeContactInfo: {
     mobileNumber: string;
     address: string;
     zipCode: string;
@@ -27,8 +42,10 @@ export class RegistrationPage {
   // --- Section: Owner Info ---
   readonly formOfOwnership: Locator;
   readonly isOwnerApplicant: Locator;
+  readonly haveRepresentative: Locator;
   readonly title: Locator;
   readonly firstName: Locator;
+  readonly middleName: Locator;
   readonly lastName: Locator;
   readonly gender: Locator;
   readonly civilStatus: Locator;
@@ -38,6 +55,17 @@ export class RegistrationPage {
   readonly mobileinput: Locator;
   readonly address: Locator;
   readonly zipCode: Locator;
+
+  // --- Representative ---
+  readonly Representativetitle: Locator;
+  readonly RepresentativefirstName: Locator;
+  readonly RepresentativemiddleName: Locator;
+  readonly RepresentativelastName: Locator;
+
+  readonly Representativeemail: Locator;
+  readonly Representativemobileinput: Locator;
+  readonly Representativeaddress: Locator;
+  readonly RepresentativezipCode: Locator;
 
   // --- Account ---
   readonly username: Locator;
@@ -56,10 +84,14 @@ export class RegistrationPage {
     page,
     testEnvironment,
     OwnerInfo,
+    isOwner,
     ContactInfo,
+    RepresentativeInfo,
+    RepresentativeContactInfo,
   }: RegistrationTypes) {
     this.testEnvironment = testEnvironment;
     this.page = page;
+    this.isOwner = isOwner;
 
     this.urlLink = testEnvironment
       ? (process.env.TEST_Registration as string)
@@ -67,6 +99,8 @@ export class RegistrationPage {
 
     this.OwnerInfo = OwnerInfo;
     this.ContactInfo = ContactInfo;
+    this.RepresentativeInfo = RepresentativeInfo;
+    this.RepresentativeContactInfo = RepresentativeContactInfo;
 
     var firstLetter = this.OwnerInfo.firstName.split("");
     this.userNameValue = firstLetter[0] + this.OwnerInfo.lastName;
@@ -77,13 +111,41 @@ export class RegistrationPage {
     // Owner Info
     this.formOfOwnership = page.getByLabel("Form of Ownership");
     this.isOwnerApplicant = page.getByLabel("Check if Owner is the Applicant");
+    this.haveRepresentative = page.getByLabel("Check if Applicable");
     this.title = page.locator("#Owner_Title");
 
     this.firstName = page.locator('input[name="Owner.FirstName"]');
+    this.middleName = page.locator('input[name="Owner.MiddleName"]');
     this.lastName = page.locator('input[name="Owner.LastName"]');
+
+    // Representative Info
+    this.Representativetitle = page.locator("#Representative_Title");
+    this.RepresentativefirstName = page.locator(
+      'input[name="Representative.FirstName"]',
+    );
+    this.RepresentativemiddleName = page.locator(
+      'input[name="Representative.MiddleName"]',
+    );
+    this.RepresentativelastName = page.locator(
+      'input[name="Representative.LastName"]',
+    );
+    this.Representativemobileinput = page.locator(
+      'input[name="Representative.MobileNo"]',
+    );
+    this.Representativeemail = page.locator(
+      'input[name="Representative.Email"]',
+    );
+    this.Representativeaddress = page.locator(
+      'input[name="RepresentativeAddress.FullAddress"]',
+    );
+    this.RepresentativezipCode = page.locator(
+      'input[name="RepresentativeAddress.Zipcode"]',
+    );
 
     this.gender = page.locator("#Owner_Gender");
     this.civilStatus = page.locator("#Owner_CivilStatus");
+
+    // Representative Information
 
     // Contact
     this.email = page.locator(
@@ -132,12 +194,33 @@ export class RegistrationPage {
 
   async fillOwnerInfo() {
     await this.formOfOwnership.selectOption("Individual");
-    await this.isOwnerApplicant.check();
+    // await this.isOwnerApplicant.check();
+    await this.haveRepresentative.check();
     await this.title.selectOption("Mr.");
     await this.firstName.fill(this.OwnerInfo.firstName);
+    await this.middleName.fill(this.OwnerInfo.middleName);
     await this.lastName.fill(this.OwnerInfo.lastName);
     await this.gender.selectOption("Male");
     await this.civilStatus.selectOption("Single");
+  }
+
+  async fillRepresentativeInfo() {
+    await this.Representativetitle.selectOption("Mr.");
+    await this.RepresentativefirstName.fill(this.RepresentativeInfo.firstName);
+    await this.RepresentativemiddleName.fill(
+      this.RepresentativeInfo.middleName,
+    );
+    await this.RepresentativelastName.fill(this.RepresentativeInfo.lastName);
+    await this.Representativeemail.fill("pvillanueva@geosolutions.com.ph");
+    await this.Representativemobileinput.fill(
+      this.RepresentativeContactInfo.mobileNumber,
+    );
+    await this.Representativeaddress.fill(
+      this.RepresentativeContactInfo.address,
+    );
+    await this.RepresentativezipCode.fill(
+      this.RepresentativeContactInfo.zipCode,
+    );
   }
 
   async fillContact() {
