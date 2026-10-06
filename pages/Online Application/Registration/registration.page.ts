@@ -194,8 +194,12 @@ export class RegistrationPage {
 
   async fillOwnerInfo() {
     await this.formOfOwnership.selectOption("Individual");
-    // await this.isOwnerApplicant.check();
-    await this.haveRepresentative.check();
+    this.isOwner
+      ? await this.isOwnerApplicant.check()
+      : await this.haveRepresentative.check();
+    !this.isOwner
+      ? await this.fillRepresentativeInfo()
+      : console.log("Not Owner");
     await this.title.selectOption("Mr.");
     await this.firstName.fill(this.OwnerInfo.firstName);
     await this.middleName.fill(this.OwnerInfo.middleName);

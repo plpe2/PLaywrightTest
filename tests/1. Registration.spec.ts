@@ -64,13 +64,14 @@ test("Application Registration", async ({ page }) => {
     testEnvironment: false,
     isOwner: true,
     OwnerInfo: {
-      firstName: "First",
-      middleName: "User",
-      lastName: "Information",
+      firstName: "edgar",
+      middleName: "a",
+      lastName: "suma-oy",
     },
     ContactInfo: {
-      mobileNumber: "09155352294",
-      address: "BLK 8 Lot 8 Molino IV Bacoor Cavite",
+      mobileNumber: "09061752056",
+      address:
+        "L 18-A MA. CRISTINA ST. STA LUCIA VILL. PANAPAAN IV BACOOR CITY CAVITE",
       zipCode: "4102",
     },
     RepresentativeInfo: {
@@ -90,10 +91,9 @@ test("Application Registration", async ({ page }) => {
   await Rp.fillOwnerInfo();
   await Rp.fillContact();
   await Rp.fillAccount();
-  await Rp.fillRepresentativeInfo();
   await Rp.submit();
-  // await page.waitForTimeout(5000);
   await Rp.confirmIfVisible();
+  // await page.waitForTimeout(5000);
   // await Rp.expectSuccess();
 
   await page

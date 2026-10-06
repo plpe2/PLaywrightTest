@@ -23,6 +23,7 @@ export class Electronics extends BPASHelper {
       .filter({ hasText: "Complied" })
       .first()
       .click();
+    await this.page.locator("#txtEvalRemarks").fill("1");
     await this.page.locator("#btnSaveAll").click();
   }
 }
