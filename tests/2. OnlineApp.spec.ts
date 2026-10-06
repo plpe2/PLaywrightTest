@@ -44,13 +44,13 @@ test("BpApplication", async ({ page }) => {
     page,
     testEnvironment: false,
     isNewAccount: true,
-    isExisting: false,
+    isExisting: true,
     BpAppInfo: {
       Pin: "2026-04-00123",
       ProjectTitle: "PROPOSED TWO STOREY RESIDENTIAL",
-      BldgName: "SUMA-OY",
-      TDN: "",
-      TCTNo: "",
+      BldgName: "DSAUD",
+      TDN: "1",
+      TCTNo: "2",
       ProjectCost: 155643,
       FloorArea: 158,
       StoreyNo: 1,
@@ -70,10 +70,20 @@ test("BpApplication", async ({ page }) => {
 
   // function Calling Procees of BpApplication
   await BpApp.gotoApplication();
-  await loginApp.loginAccount("0000038", "ESUMA-OY");
+  await loginApp.loginAccount("0000029", "SSAUD");
   await loginApp.otpCode();
   await BpApp.ProjectInfoEncoding();
-  // await BpApp.ProfessionalInfoEncoding();
+  await BpApp.ProfessionalInfoEncoding({
+    fname: "WALLY",
+    mname: "",
+    lname: "BANRO",
+    profession: "Architect",
+    prc: "0001875",
+    dateIssued: "10062026",
+    issuedAt: "Bacoor",
+    Validity: "12072028",
+  });
+
   // await BpApp.DocumentSubmission();
   // await BpApp.submitApp();
 });

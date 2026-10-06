@@ -228,16 +228,140 @@ export class BpApplication {
     await this.Nextbtn.click();
   }
 
-  async ProfessionalInfoEncoding() {
+  async ProfessionalInfoEncoding({
+    fname,
+    mname,
+    lname,
+    profession,
+    prc,
+    dateIssued,
+    issuedAt,
+    Validity,
+  }: {
+    fname: string;
+    mname: string;
+    lname: string;
+    profession: string;
+    prc: string;
+    dateIssued: string;
+    issuedAt: string;
+    Validity: string;
+  }) {
     await this.page
       .getByRole("button", {
         name: "Search Existing Professional",
       })
       .click();
-    await this.page.getByRole("gridcell", { name: "ROMELO, MARTIN" }).click();
-    await this.page.getByRole("button", { name: "Select" }).click();
-    await this.page.waitForTimeout(4000);
-    await this.Nextbtn.click();
+
+    await this.page.getByRole("textbox", { name: "Enter Keyword" }).fill(lname);
+    await this.page
+      .getByRole("button", { name: "Search", exact: true })
+      .click();
+    const profVal = this.page.getByRole("gridcell", {
+      name: lname + ", " + fname,
+    });
+
+    if ((await profVal.count()) > 0) {
+      await profVal.click();
+      await this.page.getByRole("button", { name: "Select" }).click();
+      await this.page.waitForTimeout(4000);
+      await this.Nextbtn.click();
+    } else {
+      await this.page.getByRole("button", { name: "Close" }).click();
+      await this.page
+        .getByRole("button", { name: "Add New Professional" })
+        .click();
+
+      await this.page
+        .locator("#divModalProf #Person_Title")
+        .selectOption("Mr.");
+      await this.page
+        .locator('#divModalProf input[name="Person.FirstName"]')
+        .fill(fname);
+
+      await this.page
+        .locator('#divModalProf input[name="Person.MiddleName"]')
+        .fill(mname);
+
+      await this.page
+        .locator('#divModalProf input[name="Person.LastName"]')
+        .fill(lname);
+
+      await this.page.locator("#Person_Gender").selectOption("Male");
+
+      await this.page
+        .locator("#divModalProf #Discipline")
+        .selectOption(profession);
+
+      await this.page
+        .locator(
+          "xpath=//*[@id='divModalProf']/div/div/div[2]/div[3]/div/div[2]/input",
+        )
+        .fill("9155352294");
+
+      await this.page
+        .locator('#divModalProf input[name="License.LicenseNo"]')
+        .fill(prc);
+
+      const convertedDate = `${dateIssued.substring(4, 8)}-${dateIssued.substring(2, 4)}-${dateIssued.substring(0, 2)}`;
+      const ValidityDate = `${Validity.substring(4, 8)}-${Validity.substring(2, 4)}-${Validity.substring(0, 2)}`;
+
+      await this.page
+        .locator('#divModalProf input[name="License.DateIssued"]')
+        .fill(convertedDate);
+
+      await this.page
+        .locator('#divModalProf input[name="License.IssuedAt"]')
+        .fill(issuedAt);
+
+      await this.page
+        .locator('#divModalProf input[name="License.ExpirationDate"]')
+        .fill(ValidityDate);
+
+      await this.page
+        .locator('#divModalProf input[name="License1.LicenseNo"]')
+        .fill(prc);
+
+      await this.page
+        .locator('#divModalProf input[name="License1.DateIssued"]')
+        .fill(convertedDate);
+
+      await this.page
+        .locator('#divModalProf input[name="License1.IssuedAt"]')
+        .fill(issuedAt);
+
+      await this.page
+        .locator('#divModalProf input[name="License1.ExpirationDate"]')
+        .fill(ValidityDate);
+
+      await this.page
+        .locator('#divModalProf input[name="Person.Address.FullAddress"]')
+        .fill("B7 L1 MOLINO HOMES MOLINO IV BACOOR, CAVITE");
+
+      await this.page.getByRole("button", { name: "Add", exact: true }).click();
+
+      await this.page.getByRole("button", { name: "OK" }).click();
+      await this.page.getByRole("button", { name: "Close" }).click();
+
+      await this.page
+        .getByRole("button", {
+          name: "Search Existing Professional",
+        })
+        .click();
+
+      await this.page
+        .getByRole("textbox", { name: "Enter Keyword" })
+        .fill(lname);
+      await this.page
+        .getByRole("button", { name: "Search", exact: true })
+        .click();
+      await profVal.click();
+      await this.page.getByRole("button", { name: "Select" }).click();
+      await this.page.waitForTimeout(4000);
+      await this.Nextbtn.click();
+
+      await this.page.waitForTimeout(5000);
+    }
   }
 
   async DocumentSubmission() {
