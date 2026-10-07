@@ -258,11 +258,28 @@ export class BpApplication {
       .getByRole("button", { name: "Search", exact: true })
       .click();
     const profVal = this.page.getByRole("gridcell", {
-      name: lname + ", " + fname,
+      name: lname + ", " + fname + " " + mname,
     });
 
-    if ((await profVal.count()) > 0) {
-      await profVal.click();
+    let professionalExists = false;
+
+    try {
+      await profVal.first().waitFor({
+        state: "visible",
+        timeout: 5000,
+      });
+
+      professionalExists = true;
+    } catch {
+      professionalExists = false;
+    }
+
+    if (professionalExists) {
+      await profVal.waitFor({ state: "visible" });
+
+      if (await profVal.isEnabled()) {
+        await profVal.click();
+      }
       await this.page.getByRole("button", { name: "Select" }).click();
       await this.page.waitForTimeout(4000);
       await this.Nextbtn.click();
