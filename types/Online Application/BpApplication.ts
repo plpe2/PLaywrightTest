@@ -10,7 +10,7 @@ export type BpTypes = {
 
 export type BldgAppInfo = {
   Pin: string;
-  ProjectTitle?: string;
+  ProjectTitle: string;
   BldgName: string;
   TDN: string;
   TCTNo: string;

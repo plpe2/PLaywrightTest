@@ -203,6 +203,24 @@ export class BpApplication {
     await this.StoreyNo.fill(String(this.BldgAppInfo.StoreyNo));
     await this.LotArea.fill(String(this.BldgAppInfo.FloorArea));
     await this.BldgHeight.fill(String(this.BldgAppInfo.BldgHeight));
+
+    // if (!this.isExisting) {
+    await this.ProjectTitle.click();
+    const activeDropdown = this.page.locator(
+      '.dropdown-menu.show[role="combobox"]:visible',
+    );
+
+    await activeDropdown
+      .getByRole("textbox", { name: "Search" })
+      .fill(this.BldgAppInfo.ProjectTitle);
+
+    await this.page.waitForTimeout(1000);
+
+    await activeDropdown
+      .locator("ul.dropdown-menu.inner > li:first-child")
+      .click();
+    // }
+
     await this.Progress.selectOption("To Start");
     await this.LotNo.fill(this.BldgAppInfo.LotNo);
     await this.BlkNo.fill(this.BldgAppInfo.BlkNo);
@@ -214,14 +232,6 @@ export class BpApplication {
     await this.BuildingGroup.selectOption(this.BldgAppInfo.BuildingGroup);
     await this.BuildingDivision.selectOption(this.BldgAppInfo.BuildingDivision);
 
-    if (!this.isExisting) {
-      await this.ProjectTitle.click();
-      await this.page
-        .locator(
-          "//*[@id='formProjectInfo']/div/div/div/div[2]/div[3]/div[1]/div[1]/div[1]/div/div[2]/div/div[2]/ul/li[2]/a",
-        )
-        .click();
-    }
     await this.Savebtn.click();
     await this.page.locator("xpath=/html/body/div[3]/div").isVisible();
     await this.page.getByRole("button", { name: "OK" }).click();
