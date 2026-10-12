@@ -216,9 +216,42 @@ export class BpApplication {
 
     await this.page.waitForTimeout(1000);
 
-    await activeDropdown
-      .locator("ul.dropdown-menu.inner > li:first-child")
-      .click();
+    const resultDropdown = activeDropdown.locator(
+      "ul.dropdown-menu.inner > li:first-child",
+    );
+
+    if (
+      (await resultDropdown.innerText()) ===
+      `No results matched "${this.BldgAppInfo.ProjectTitle}"`
+    ) {
+      console.log("asdasd");
+      await this.page.locator("#btnShowModalProjectTitle").click();
+      await this.page
+        .locator("input[name='NewProjectTitles']")
+        .fill(this.BldgAppInfo.ProjectTitle);
+      await this.page.locator("#btnSaveNewProjTitle").click();
+
+      // await this.ProjectTitle.click();
+      // const activeDropdown = this.page.locator(
+      //   '.dropdown-menu.show[role="combobox"]:visible',
+      // );
+
+      // await activeDropdown
+      //   .getByRole("textbox", { name: "Search" })
+      //   .fill(this.BldgAppInfo.ProjectTitle);
+
+      // await this.page.waitForTimeout(1000);
+
+      // const resultDropdown = activeDropdown.locator(
+      //   "ul.dropdown-menu.inner > li:first-child",
+      // );
+      // await resultDropdown.click();
+    } else {
+      await resultDropdown.click();
+      console.log("Successfully found the Project Title");
+    }
+
+    await this.page.waitForTimeout(5000);
     // }
 
     await this.Progress.selectOption("To Start");
@@ -392,6 +425,7 @@ export class BpApplication {
   }
 
   async DocumentSubmission() {
+    await this.page.getByRole("button", { name: "OK" }).click();
     await this.page.locator(".m-2").first().click();
     await this.page
       .locator(
